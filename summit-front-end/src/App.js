@@ -9,12 +9,15 @@ import {
 import Summits from "./summits/pages/Summits";
 import Users from './users/pages/Users'
 import NewSummit from "./summits/pages/NewSummit";
+import MainNavigation from './shared/components/Navigation/MainNavigation';
 
 import "./App.css";
 
 const App = () => {
   return (
     <Router>
+      <MainNavigation />
+      <main>
       {/* if a correct path is entered switch will prevent the rest from loading. */}
       <Switch>
         <Route path="/" exact>
@@ -29,7 +32,9 @@ const App = () => {
 
         {/* Redirect to summits for all other routes */}
         <Redirect to="/" />
+        
       </Switch>
+      </main>
     </Router>
   );
 };

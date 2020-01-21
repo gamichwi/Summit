@@ -3,8 +3,6 @@ import React from "react";
 import UserItem from "./UserItem";
 import { ListGroup } from "react-bootstrap";
 
-import "./UsersList.css";
-
 const UsersList = props => {
   if (props.items.length === 0) {
     return (
