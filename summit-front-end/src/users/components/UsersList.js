@@ -1,7 +1,7 @@
 import React from "react";
 
 import UserItem from "./UserItem";
-import { ListGroup } from 'react-bootstrap';
+import { ListGroup } from "react-bootstrap";
 
 import "./UsersList.css";
 
@@ -15,7 +15,7 @@ const UsersList = props => {
   }
   return (
     <ListGroup>
-              {props.items.map(user => (
+      {props.items.map(user => (
         <UserItem
           key={user.id}
           id={user.id}
@@ -24,8 +24,8 @@ const UsersList = props => {
           summitCount={user.summits}
         />
       ))}
-
-    </ListGroup>  );
+    </ListGroup>
+  );
 };
 
 export default UsersList;
