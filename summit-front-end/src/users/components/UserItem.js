@@ -1,23 +1,21 @@
-import React from 'react';
-import { Card } from 'react-bootstrap';
+import React from "react";
+import { Card, Button, ListGroup } from "react-bootstrap";
 
-import './UserItem.css'
+// import "./UserItem.css";
 
 const UserItem = props => {
-
-    <Card style={{ width: '18rem' }}>
-  <Card.Img variant="top" src="holder.js/100px180" />
-  <Card.Body>
-    <Card.Title>Card Title</Card.Title>
-    <Card.Text>
-      Some quick example text to build on the card title and make up the bulk of
-      the card's content.
-    </Card.Text>
-    <Button variant="primary">Go somewhere</Button>
-  </Card.Body>
-</Card>
+  return (
+    <ListGroup.Item>
+      <Card style={{ width: "18rem" }}>
+        <Card.Img variant="top" src={props.image} />
+        <Card.Body>
+          <Card.Title>{props.name}</Card.Title>
+          <Card.Text>Conquered {props.summitCount} summits!</Card.Text>
+          <Button variant="primary">Visit</Button>
+        </Card.Body>
+      </Card>
+    </ListGroup.Item>
+  );
 };
-
-
 
 export default UserItem;
