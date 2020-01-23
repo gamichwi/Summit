@@ -9,7 +9,9 @@ import {
 import Summits from "./summits/pages/Summits";
 import Users from './users/pages/Users'
 import NewSummit from "./summits/pages/NewSummit";
+import UserSummits from './summits/pages/UserSummits'
 import MainNavigation from './shared/components/Navigation/MainNavigation';
+
 
 import "./App.css";
 
@@ -22,6 +24,9 @@ const App = () => {
       <Switch>
         <Route path="/" exact>
           <Summits />
+        </Route>
+        <Route path="/:userId/summits" exact>
+          <UserSummits />
         </Route>
         <Route path="/users" exact>
           <Users />
