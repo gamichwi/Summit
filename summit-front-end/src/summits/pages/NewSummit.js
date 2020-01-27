@@ -1,11 +1,60 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useReducer } from "react";
 
 import Input from "../../shared/components/FormElements/Input";
 import { VALIDATOR_REQUIRE } from "../../shared/util/validators";
 
+const formReducer = (state, action) => {
+  switch (action.type) {
+    case "INPUT_CHANGE":
+      let formIsValid = true;
+      for (const inputId in state.inputs) {
+        if (inputId === action.inputId) {
+          formIsValid = formIsValid && action.isValid;
+        } else {
+          formIsValid = formIsValid && state.inputs[inputId].isValid;
+        }
+      }
+
+      return {
+        ...state,
+        inputs: {
+          ...state.inputs,
+          [action.inputId]: { value: action.value, isValid: action.isValid }
+        },
+        isValid: formIsValid
+      };
+    default:
+      return state;
+  }
+};
+
 const NewSummit = () => {
+  const [formState, dispatch] = useReducer(formReducer, {
+    inputs: {
+      title: {
+        value: "",
+        isValid: false
+      },
+      targetDate: {
+        value: "",
+        isValid: false
+      },
+      targetCoordinates: {
+        value: "",
+        isValid: false
+      }
+    },
+    isValid: false
+  });
   // useCallBack to avoid infinite loop
-  const titleInputHandler = useCallback((id, value, isValid) => {}, []);
+  const inputHandler = useCallback((id, value, isValid) => {
+    dispatch({
+      type: "INPUT_CHANGE",
+      value: value,
+      isValid: isValid,
+      inputId: id
+    });
+  }, []);
 
   return (
     <form>
@@ -16,7 +65,7 @@ const NewSummit = () => {
         label="Summit Title"
         validators={[VALIDATOR_REQUIRE()]}
         errorText="Please enter a valid title."
-        onInput={titleInputHandler}
+        onInput={inputHandler}
       />
       <Input
         id="targetDate"
@@ -25,7 +74,7 @@ const NewSummit = () => {
         label="Summit Target Date"
         validators={[VALIDATOR_REQUIRE()]}
         errorText="Please enter a valid target date."
-        onInput={titleInputHandler}
+        onInput={inputHandler}
       />
       <Input
         id="targetCoordinates"
@@ -34,8 +83,9 @@ const NewSummit = () => {
         label="Summit Target Location"
         validators={[VALIDATOR_REQUIRE()]}
         errorText="Please enter a valid location."
-        onInput={titleInputHandler}
+        onInput={inputHandler}
       />
+      <button type="submit" disabled={!formState.isValid}>ADD SUMMIT</button>
     </form>
   );
 };
