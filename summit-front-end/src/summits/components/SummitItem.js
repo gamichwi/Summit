@@ -1,5 +1,7 @@
 import React from "react";
-import { Button, Card, ListGroup } from "react-bootstrap";
+import { Card, ListGroup } from "react-bootstrap";
+
+import Button from '../../shared/components/FormElements/Button'
 
 const SummitItem = props => {
   return (
@@ -13,7 +15,7 @@ const SummitItem = props => {
           </Card.Text>
           <Card.Text>Countdown</Card.Text>
           <Button>MAP</Button>
-          <Button>EDIT</Button>
+          <Button to={`/summits/${props.id}`}>EDIT</Button>
           <Button>DELETE</Button>
         </Card.ImgOverlay>
       </Card>
