@@ -1,5 +1,7 @@
 const express = require("express");
 
+const HttpError = require("../models/http-error");
+
 const router = express.Router();
 
 const DUMMY_PLACES = [
@@ -56,9 +58,9 @@ router.get("/:summitId", (req, res, next) => {
     return s.id === summitId;
   });
   if (!summit) {
-      const error = new Error('Could not find a place for the provided summit id.');
-      error.code = 404;
-      return next(error);
+    return next(
+      new HttpError("Could not find a summit for the provided Summit Id", 404)
+    );
   }
   res.json({ summit });
 });
@@ -69,10 +71,10 @@ router.get("/user/:userId", (req, res, next) => {
     return s.userId === userId;
   });
   if (!summit) {
-    const error = new Error('Could not find a place for the provided user id.');
-    error.code = 404;
-    return next(error);
-}
+    return next(
+      new HttpError("Could not find a summit for the provided User Id", 404)
+    );
+  }
   res.json({ summit });
 });
 
