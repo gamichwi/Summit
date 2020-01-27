@@ -30,7 +30,7 @@ return (
         completedCoordinates={summit.completedLocation}
         likes={summit.likes}
         summitWord={summit.word}
-        publicFlag={summit.publicFlag}
+        private={summit.private}
       />
     ))}
   </ListGroup>

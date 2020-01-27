@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
 import SummitList from "../components/SummitList";
 
@@ -22,7 +22,7 @@ const DUMMY_PLACES = [
     },
     likes: [],
     summitWord: [],
-    publicFlag: true
+    private: true
   },
   {
     id: "p2",
@@ -43,13 +43,15 @@ const DUMMY_PLACES = [
     },
     likes: [],
     summitWord: [],
-    publicFlag: true
+    private: true
   }
 ];
 
 const UserSummits = () => {
   const userId = useParams().userId;
-  const loadedPlaces = DUMMY_PLACES.filter(summit => summit.creatorId === userId);
+  const loadedPlaces = DUMMY_PLACES.filter(
+    summit => summit.creatorId === userId
+  );
   return <SummitList items={loadedPlaces} />;
 };
 
