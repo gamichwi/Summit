@@ -39,7 +39,7 @@ const NewSummit = () => {
         value: "",
         isValid: false
       },
-      targetCoordinates: {
+      targetAddress: {
         value: "",
         isValid: false
       }
@@ -77,7 +77,7 @@ const NewSummit = () => {
         onInput={inputHandler}
       />
       <Input
-        id="targetCoordinates"
+        id="targetAddress"
         element="input"
         type="text"
         label="Summit Target Location"

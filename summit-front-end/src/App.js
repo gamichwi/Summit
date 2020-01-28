@@ -34,7 +34,7 @@ const App = () => {
           <Route path="/summits/new" exact>
             <NewSummit />
           </Route>
-          <Route path="/summits/:summitid">
+          <Route path="/summits/:summitId">
             <UpdateSummit />
           </Route>
           {/* Redirect to summits for all other routes */}
