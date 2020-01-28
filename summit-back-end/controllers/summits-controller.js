@@ -65,17 +65,17 @@ const getSummitById = (req, res, next) => {
   res.json({ summit });
 };
 
-const getSummitByUserId = (req, res, next) => {
+const getSummitsByUserId = (req, res, next) => {
   const userId = req.params.userId;
-  const summit = DUMMY_PLACES.find(s => {
+  const summits = DUMMY_PLACES.filter(s => {
     return s.userId === userId;
   });
-  if (!summit) {
+  if (!summits) {
     return next(
-      new HttpError("Could not find a summit for the provided User Id", 404)
+      new HttpError("Could not find summits for the provided User Id", 404)
     );
   }
-  res.json({ summit });
+  res.json({ summits });
 };
 
 const createSummit = (req, res, next) => {
@@ -123,7 +123,7 @@ const deleteSummit = (req, res, next) => {
 };
 
 exports.getSummitById = getSummitById;
-exports.getSummitByUserId = getSummitByUserId;
+exports.getSummitsByUserId = getSummitsByUserId;
 exports.createSummit = createSummit;
 exports.updateSummit = updateSummit;
 exports.deleteSummit = deleteSummit;
