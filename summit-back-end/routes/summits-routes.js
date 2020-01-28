@@ -10,4 +10,8 @@ router.get("/user/:userId", summitControllers.getSummitByUserId);
 
 router.post('/', summitControllers.createSummit);
 
+router.patch('/:summitId', summitControllers.updateSummit);
+
+router.delete('/:summitId', summitControllers.deleteSummit);
+
 module.exports = router;

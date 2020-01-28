@@ -1,4 +1,4 @@
-const uuid = require('uuid/v4');
+const uuid = require("uuid/v4");
 
 const HttpError = require("../models/http-error");
 
@@ -79,7 +79,13 @@ const getSummitByUserId = (req, res, next) => {
 };
 
 const createSummit = (req, res, next) => {
-  const { title, targetAddress, targetCoordinates, targetDate, userId } = req.body;
+  const {
+    title,
+    targetAddress,
+    targetCoordinates,
+    targetDate,
+    userId
+  } = req.body;
 
   const createdSummit = {
     id: uuid(),
@@ -91,11 +97,29 @@ const createSummit = (req, res, next) => {
   };
   DUMMY_PLACES.push(createdSummit);
 
-res.status(201).json({ summit: createdSummit });
+  res.status(201).json({ summit: createdSummit });
 };
 
+const updateSummit = (req, res, next) => {
+  const { title, targetAddress, targetCoordinates, targetDate } = req.body;
+  const summitId = req.params.summitId;
 
+  const updatedSummit = { ...DUMMY_PLACES.find(s => s.id === summitId) };
+  const summitIndex = DUMMY_PLACES.findIndex(s => s.id === summitId);
+  updatedSummit.title = title;
+  updatedSummit.targetAddress = targetAddress;
+  updatedSummit.targetCoordinates = targetCoordinates;
+  updatedSummit.targetDate = targetDate;
+
+  DUMMY_PLACES[summitIndex] = updatedSummit;
+
+  res.status(200).json({summit: updatedSummit})
+};
+
+const deleteSummit = (req, res, next) => {};
 
 exports.getSummitById = getSummitById;
 exports.getSummitByUserId = getSummitByUserId;
 exports.createSummit = createSummit;
+exports.updateSummit = updateSummit;
+exports.deleteSummit = deleteSummit;
