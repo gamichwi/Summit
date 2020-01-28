@@ -2,7 +2,7 @@ const uuid = require("uuid/v4");
 
 const HttpError = require("../models/http-error");
 
-const DUMMY_PLACES = [
+let DUMMY_PLACES = [
   {
     id: "p1",
     userId: "u1",
@@ -113,10 +113,14 @@ const updateSummit = (req, res, next) => {
 
   DUMMY_PLACES[summitIndex] = updatedSummit;
 
-  res.status(200).json({summit: updatedSummit})
+  res.status(200).json({ summit: updatedSummit });
 };
 
-const deleteSummit = (req, res, next) => {};
+const deleteSummit = (req, res, next) => {
+  const summitId = req.params.summitId;
+  DUMMY_PLACES = DUMMY_PLACES.filter(s => s.id !== summitId);
+  res.status(200).json({ message: 'Deleted Summit.' })
+};
 
 exports.getSummitById = getSummitById;
 exports.getSummitByUserId = getSummitByUserId;
