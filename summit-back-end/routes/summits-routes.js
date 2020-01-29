@@ -18,14 +18,31 @@ router.post(
     check("targetAddress")
       .not()
       .isEmpty(),
-      check("targetDate")
+    check("targetDate")
       .not()
       .isEmpty()
   ],
   summitControllers.createSummit
 );
 
-router.patch("/:summitId", summitControllers.updateSummit);
+router.patch(
+  "/:summitId",
+  [
+    check("title")
+      .not()
+      .isEmpty(),
+    check("targetAddress")
+      .not()
+      .isEmpty(),
+    check("targetCoordinates")
+      .not()
+      .isEmpty(),
+    check("targetDate")
+      .not()
+      .isEmpty()
+  ],
+  summitControllers.updateSummit
+);
 
 router.delete("/:summitId", summitControllers.deleteSummit);
 

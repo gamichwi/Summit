@@ -1,5 +1,5 @@
 const uuid = require("uuid/v4");
-const { validationResult } = require('express-validator');
+const { validationResult } = require("express-validator");
 
 const HttpError = require("../models/http-error");
 
@@ -80,15 +80,17 @@ const getSummitsByUserId = (req, res, next) => {
 };
 
 const createSummit = (req, res, next) => {
-// check any validation errors set with express-validator
- const errors = validationResult(req);
+  // check any validation errors set with express-validator
+  const errors = validationResult(req);
   if (!errors.isEmpty()) {
     console.log(errors);
     return next(
-      new HttpError('Invalid inputs. Please check what you have entered.', 422)
+      new HttpError(
+        "Invalid data entered. Please check what you have entered.",
+        422
+      )
     );
   }
-
 
   const {
     title,
@@ -112,6 +114,18 @@ const createSummit = (req, res, next) => {
 };
 
 const updateSummit = (req, res, next) => {
+  // check any validation errors set with express-validator
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    console.log(errors);
+    return next(
+      new HttpError(
+        "Invalid data entered. Please check what you have entered.",
+        422
+      )
+    );
+  }
+
   const { title, targetAddress, targetCoordinates, targetDate } = req.body;
   const summitId = req.params.summitId;
 
@@ -129,8 +143,16 @@ const updateSummit = (req, res, next) => {
 
 const deleteSummit = (req, res, next) => {
   const summitId = req.params.summitId;
+  if (!DUMMY_PLACES.find(s => s.id === summitId)) {
+    return next(
+      new HttpError(
+        "Could not find a summit for that id.",
+        404
+      )
+    );
+  }
   DUMMY_PLACES = DUMMY_PLACES.filter(s => s.id !== summitId);
-  res.status(200).json({ message: 'Deleted Summit.' })
+  res.status(200).json({ message: "Deleted Summit." });
 };
 
 exports.getSummitById = getSummitById;
