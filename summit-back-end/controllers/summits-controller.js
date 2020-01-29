@@ -1,4 +1,5 @@
 const uuid = require("uuid/v4");
+const { validationResult } = require('express-validator');
 
 const HttpError = require("../models/http-error");
 
@@ -79,6 +80,16 @@ const getSummitsByUserId = (req, res, next) => {
 };
 
 const createSummit = (req, res, next) => {
+// check any validation errors set with express-validator
+ const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    console.log(errors);
+    return next(
+      new HttpError('Invalid inputs. Please check what you have entered.', 422)
+    );
+  }
+
+
   const {
     title,
     targetAddress,
