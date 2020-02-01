@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import Input from "../../shared/components/FormElements/Input";
@@ -57,35 +57,62 @@ const DUMMY_PLACES = [
 ];
 
 const UpdateSummit = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
   const summitId = useParams().summitId;
+
+  const [formState, inputHandler, setFormData] = useForm(
+    {
+      title: {
+        value: "",
+        isValid: false
+      },
+      targetDate: {
+        value: "",
+        isValid: false
+      },
+      targetAddress: {
+        value: "",
+        isValid: false
+      }
+    },
+    false
+  );
 
   const identifiedSummit = DUMMY_PLACES.find(s => s.id === summitId);
 
-  const [formState, inputHandler] = useForm(
-    {
-      title: {
-        value: identifiedSummit.title,
-        isValid: true
+  useEffect(() => {
+    setFormData(
+      {
+        title: {
+          value: identifiedSummit.title,
+          isValid: true
+        },
+        targetDate: {
+          value: identifiedSummit.targetDate,
+          isValid: true
+        },
+        targetAddress: {
+          value: identifiedSummit.targetAddress,
+          isValid: true
+        }
       },
-      targetDate: {
-        value: identifiedSummit.targetDate,
-        isValid: true
-      },
-      targetAddress: {
-        value: identifiedSummit.targetAddress,
-        isValid: true
-      }
-    },
-    true
-  );
+      true
+    );
+    setIsLoading(false);
+  }, [setFormData, identifiedSummit]);
 
-const summitUpdateSubmitHandler = event => {
-  event.preventDefault();
-  console.log(formState.inputs);
-}
+  const summitUpdateSubmitHandler = event => {
+    event.preventDefault();
+    console.log(formState.inputs);
+  };
 
   if (!identifiedSummit) {
     return <h2>Could not find the summit you're looking for.</h2>;
+  }
+
+  if (isLoading) {
+    return <h2>Loading...</h2>;
   }
 
   return (
