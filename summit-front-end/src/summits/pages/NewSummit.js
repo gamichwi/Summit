@@ -1,6 +1,7 @@
 import React, { useCallback, useReducer } from "react";
 
 import Input from "../../shared/components/FormElements/Input";
+import Button from "../../shared/components/FormElements/Button";
 import { VALIDATOR_REQUIRE } from "../../shared/util/validators";
 
 const formReducer = (state, action) => {
@@ -85,7 +86,7 @@ const NewSummit = () => {
         errorText="Please enter a valid location."
         onInput={inputHandler}
       />
-      <button type="submit" disabled={!formState.isValid}>ADD SUMMIT</button>
+      <Button type="submit" disabled={!formState.isValid}>ADD SUMMIT</Button>
     </form>
   );
 };

@@ -16,10 +16,10 @@ const MainNavigation = props => {
           className="d-inline-block align-top"
         />{" "}
         Summit
-        <MainHeader>
+      </Navbar.Brand>
+      <MainHeader>
           <NavLinks />
         </MainHeader>
-      </Navbar.Brand>
     </Navbar>
   );
 };

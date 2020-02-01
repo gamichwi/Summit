@@ -34,7 +34,10 @@ const Input = props => {
 
   useEffect(() => {
     props.onInput(props.id, inputState.value, inputState.isValid);
-  }, [id, value, isValid, onInput]);
+  }, 
+  //Hide warning about useEffect on the next line
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  [id, value, isValid, onInput]);
 
   const changeHandler = event => {
     dispatch({
