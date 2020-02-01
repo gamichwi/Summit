@@ -82,23 +82,26 @@ const UpdateSummit = () => {
   const identifiedSummit = DUMMY_PLACES.find(s => s.id === summitId);
 
   useEffect(() => {
-    setFormData(
-      {
-        title: {
-          value: identifiedSummit.title,
-          isValid: true
+    if (identifiedSummit) {
+      setFormData(
+        {
+          title: {
+            value: identifiedSummit.title,
+            isValid: true
+          },
+          targetDate: {
+            value: identifiedSummit.targetDate,
+            isValid: true
+          },
+          targetAddress: {
+            value: identifiedSummit.targetAddress,
+            isValid: true
+          }
         },
-        targetDate: {
-          value: identifiedSummit.targetDate,
-          isValid: true
-        },
-        targetAddress: {
-          value: identifiedSummit.targetAddress,
-          isValid: true
-        }
-      },
-      true
-    );
+        true
+      );
+    }
+
     setIsLoading(false);
   }, [setFormData, identifiedSummit]);
 
