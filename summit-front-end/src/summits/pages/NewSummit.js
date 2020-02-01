@@ -1,61 +1,26 @@
-import React, { useCallback, useReducer } from "react";
+import React from "react";
 
 import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/FormElements/Button";
 import { VALIDATOR_REQUIRE } from "../../shared/util/validators";
-
-const formReducer = (state, action) => {
-  switch (action.type) {
-    case "INPUT_CHANGE":
-      let formIsValid = true;
-      for (const inputId in state.inputs) {
-        if (inputId === action.inputId) {
-          formIsValid = formIsValid && action.isValid;
-        } else {
-          formIsValid = formIsValid && state.inputs[inputId].isValid;
-        }
-      }
-
-      return {
-        ...state,
-        inputs: {
-          ...state.inputs,
-          [action.inputId]: { value: action.value, isValid: action.isValid }
-        },
-        isValid: formIsValid
-      };
-    default:
-      return state;
-  }
-};
+import { useForm } from "../../shared/hooks/form-hook";
 
 const NewSummit = () => {
-  const [formState, dispatch] = useReducer(formReducer, {
-    inputs: {
-      title: {
-        value: "",
-        isValid: false
-      },
-      targetDate: {
-        value: "",
-        isValid: false
-      },
-      targetAddress: {
-        value: "",
-        isValid: false
-      }
+  const [formState, inputHandler] =
+  useForm({
+    title: {
+      value: "",
+      isValid: false
     },
-    isValid: false
-  });
-  // useCallBack to avoid infinite loop
-  const inputHandler = useCallback((id, value, isValid) => {
-    dispatch({
-      type: "INPUT_CHANGE",
-      value: value,
-      isValid: isValid,
-      inputId: id
-    });
-  }, []);
+    targetDate: {
+      value: "",
+      isValid: false
+    },
+    targetAddress: {
+      value: "",
+      isValid: false
+    }
+  }, false);
 
   return (
     <form>
@@ -86,7 +51,9 @@ const NewSummit = () => {
         errorText="Please enter a valid location."
         onInput={inputHandler}
       />
-      <Button type="submit" disabled={!formState.isValid}>ADD SUMMIT</Button>
+      <Button type="submit" disabled={!formState.isValid}>
+        ADD SUMMIT
+      </Button>
     </form>
   );
 };

@@ -2,7 +2,9 @@ import React from "react";
 import { useParams } from "react-router-dom";
 
 import Input from "../../shared/components/FormElements/Input";
+import Button from "../../shared/components/FormElements/Button";
 import { VALIDATOR_REQUIRE } from "../../shared/util/validators";
+import { useForm } from "../../shared/hooks/form-hook";
 
 const DUMMY_PLACES = [
   {
@@ -11,7 +13,7 @@ const DUMMY_PLACES = [
     title: "Win a foosball championship",
     completedAddress: "Bartronica, Melbourne",
     setDate: "",
-    targetDate: "",
+    targetDate: "THIS DATE",
     completedDate: "",
     completed: false,
     setImageUrl: "https://i.ytimg.com/vi/xXq0KPEJuBk/maxresdefault.jpg",
@@ -19,7 +21,7 @@ const DUMMY_PLACES = [
       "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.z1EQMkYXiRUgWV9rkGpT9AHaE8%26pid%3DApi&f=1",
     setCoordinates: {},
     targetCoordinates: {},
-    targetAddress:'',
+    targetAddress: "asfasf",
     completedCoordinates: {
       lat: "-37.8785909",
       lng: "144.9739747"
@@ -34,7 +36,7 @@ const DUMMY_PLACES = [
     title: "Win a boxing championship",
     completedAddress: "Melbourne Fight Club",
     setDate: "",
-    targetDate: "",
+    targetDate: "asf",
     completedDate: "",
     completed: false,
     setImageUrl:
@@ -43,7 +45,7 @@ const DUMMY_PLACES = [
       "https://akm-img-a-in.tosshub.com/indiatoday/images/story/201910/jamuna9102019-770x433.png?VB4oJ8dItSqFhwwpLlkhrdCDSzixJd4w",
     setCoordinates: {},
     targetCoordinates: {},
-    targetAddress:'',
+    targetAddress: "",
     completedCoordinates: {
       lat: "-37.7873385",
       lng: "144.8642536"
@@ -56,14 +58,38 @@ const DUMMY_PLACES = [
 
 const UpdateSummit = () => {
   const summitId = useParams().summitId;
+
   const identifiedSummit = DUMMY_PLACES.find(s => s.id === summitId);
+
+  const [formState, inputHandler] = useForm(
+    {
+      title: {
+        value: identifiedSummit.title,
+        isValid: true
+      },
+      targetDate: {
+        value: identifiedSummit.targetDate,
+        isValid: true
+      },
+      targetAddress: {
+        value: identifiedSummit.targetAddress,
+        isValid: true
+      }
+    },
+    true
+  );
+
+const summitUpdateSubmitHandler = event => {
+  event.preventDefault();
+  console.log(formState.inputs);
+}
 
   if (!identifiedSummit) {
     return <h2>Could not find the summit you're looking for.</h2>;
   }
 
   return (
-    <form>
+    <form onSubmit={summitUpdateSubmitHandler}>
       <Input
         id="title"
         element="input"
@@ -71,9 +97,9 @@ const UpdateSummit = () => {
         label="Summit Title"
         validators={[VALIDATOR_REQUIRE()]}
         errorText="Please enter a valid Summit Title."
-        onInput={() => {}}
-        value={identifiedSummit.title}
-        valid={true}
+        onInput={inputHandler}
+        initialValue={formState.inputs.title.value}
+        initialValid={formState.inputs.title.isValid}
       />
       <Input
         id="targetDate"
@@ -82,9 +108,9 @@ const UpdateSummit = () => {
         label="Summit Target Date"
         validators={[VALIDATOR_REQUIRE()]}
         errorText="Please enter a valid Summit Target Date."
-        onInput={() => {}}
-        value={identifiedSummit.title}
-        valid={true}
+        onInput={inputHandler}
+        initialValue={formState.inputs.targetDate.value}
+        initialValid={formState.inputs.targetDate.isValid}
       />
       <Input
         id="targetAddress"
@@ -93,11 +119,13 @@ const UpdateSummit = () => {
         label="Summit Target Location"
         validators={[VALIDATOR_REQUIRE()]}
         errorText="Please enter a valid Summit Target Location."
-        onInput={() => {}}
-        value={identifiedSummit.title}
-        valid={true}
+        onInput={inputHandler}
+        initialValue={formState.inputs.targetAddress.value}
+        initialValid={formState.inputs.targetAddress.isValid}
       />
-      <button type="submit" disabled={true}>UPDATE</button>
+      <Button type="submit" disabled={!formState.isValid}>
+        UPDATE
+      </Button>
     </form>
   );
 };
