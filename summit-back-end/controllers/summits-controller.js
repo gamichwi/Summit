@@ -2,6 +2,7 @@ const uuid = require("uuid/v4");
 const { validationResult } = require("express-validator");
 
 const HttpError = require("../models/http-error");
+const getCoordsForAddress = require("../util/location");
 
 let DUMMY_PLACES = [
   {
@@ -68,46 +69,54 @@ const getSummitById = (req, res, next) => {
 
 const getSummitsByUserId = (req, res, next) => {
   const userId = req.params.userId;
+
   const summits = DUMMY_PLACES.filter(s => {
     return s.userId === userId;
   });
-  if (!summits) {
+
+  if (!summits || summits.length === 0) {
     return next(
       new HttpError("Could not find summits for the provided User Id", 404)
     );
   }
+  
   res.json({ summits });
 };
 
-const createSummit = (req, res, next) => {
+const createSummit = async (req, res, next) => {
   // check any validation errors set with express-validator
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     console.log(errors);
-    return next(
+     return next(
       new HttpError(
-        "Invalid data entered. Please check what you have entered.",
-        422
-      )
-    );
-  }
-
-  const {
-    title,
-    targetAddress,
-    targetCoordinates,
-    targetDate,
-    userId
-  } = req.body;
-
+        "Invalid data entered. Please check what you have entered.", 422));
+      }
+      const {
+        title,
+        targetAddress,
+        // targetCoordinates,
+        targetDate,
+        userId
+      } = req.body;
+console.log(req.body)
+    //get coordinates from google api using a function defined in util/location.js
+    let coordinates;
+    try {
+      coordinates = await getCoordsForAddress(targetAddress);
+    } catch (error) {
+      return next(error); //forward the error if there is one.
+    }
+  
   const createdSummit = {
     id: uuid(),
     title,
     targetAddress,
-    targetCoordinates,
+    targetCoordinates: coordinates,
     targetDate,
     userId
   };
+
   DUMMY_PLACES.push(createdSummit);
 
   res.status(201).json({ summit: createdSummit });
@@ -144,12 +153,7 @@ const updateSummit = (req, res, next) => {
 const deleteSummit = (req, res, next) => {
   const summitId = req.params.summitId;
   if (!DUMMY_PLACES.find(s => s.id === summitId)) {
-    return next(
-      new HttpError(
-        "Could not find a summit for that id.",
-        404
-      )
-    );
+    return next(new HttpError("Could not find a summit for that id.", 404));
   }
   DUMMY_PLACES = DUMMY_PLACES.filter(s => s.id !== summitId);
   res.status(200).json({ message: "Deleted Summit." });
