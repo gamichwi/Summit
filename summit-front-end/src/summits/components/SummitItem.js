@@ -3,6 +3,7 @@ import { Card, ListGroup } from "react-bootstrap";
 
 import ButtonTemplate from "../../shared/components/FormElements/Button";
 import ModalTemplate from "../../shared/components/UIElements/Modal";
+import Map from '../../shared/components/UIElements/Map';
 
 const SummitItem = props => {
   const [showMap, setShowMap] = useState(false);
@@ -20,7 +21,7 @@ const SummitItem = props => {
         footer={<ButtonTemplate onClick={closeMapHandler}>CLOSE</ButtonTemplate>}>
 
       <div className='map-container'>
-        <h2>THE MAP!</h2>
+        <Map center={props.targetCoordinates} zoom={16}/>
       </div>
       </ModalTemplate>
 

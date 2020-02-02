@@ -8,7 +8,7 @@ const ModalTemplate = props => {
           <Modal.Header closeButton>
             <Modal.Title>{props.header}</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+          <Modal.Body>{props.children}</Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={props.onHide}>
               Close

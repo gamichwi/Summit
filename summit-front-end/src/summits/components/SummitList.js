@@ -28,6 +28,8 @@ return (
         completedImage={summit.completedImageUrl}
         setCoordinates={summit.setLocation}
         completedCoordinates={summit.completedLocation}
+        targetDate={summit.targetDate}
+        targetCoordinates={summit.targetLocation}
         likes={summit.likes}
         summitWord={summit.word}
         private={summit.private}
