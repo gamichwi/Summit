@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from "react";
-import { InputGroup, FormControl } from "react-bootstrap";
+import { InputGroup, Form, FormControl } from "react-bootstrap";
 
 import { validate } from "../../util/validators";
 
@@ -61,7 +61,6 @@ const Input = props => {
   const element =
     props.element === "input" ? (
       <>
-        <InputGroup size="lg">
           <FormControl
             aria-label="Large"
             aria-describedby="inputGroup-sizing-sm"
@@ -72,7 +71,6 @@ const Input = props => {
             onBlur={touchHandler}
             value={inputState.value}
           />
-        </InputGroup>
       </>
     ) : (
     <>
@@ -90,12 +88,11 @@ const Input = props => {
 
   return (
     <div>
-      <InputGroup.Prepend>
-      <InputGroup.Text htmlFor={props.id}>{props.label}</InputGroup.Text>
+      <Form.Label htmlFor={props.id}>{props.label}</Form.Label>
  
       {/* <label htmlFor={props.id}>{props.label}</label> */}
       {element}
-      </InputGroup.Prepend>
+
       {!inputState.isValid && inputState.isTouched && <p>{props.errorText}</p>}
     </div>
   );

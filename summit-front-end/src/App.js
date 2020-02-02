@@ -12,6 +12,7 @@ import NewSummit from "./summits/pages/NewSummit";
 import UserSummits from "./summits/pages/UserSummits";
 import UpdateSummit from "./summits/pages/UpdateSummit";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
+import Auth from './users/pages/Auth';
 
 import "./App.css";
 
@@ -37,6 +38,10 @@ const App = () => {
           <Route path="/summits/:summitId">
             <UpdateSummit />
           </Route>
+          <Route path="/auth">
+            <Auth />
+          </Route>
+
           {/* Redirect to summits for all other routes */}
           <Redirect to="/" />
         </Switch>
