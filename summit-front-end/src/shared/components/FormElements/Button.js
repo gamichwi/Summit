@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Button, ButtonToolbar } from 'react-bootstrap';
 
-const Button = props => {
+const ButtonTemplate = props => {
   if (props.href) {
-    return <a href={props.href}>{props.children}</a>;
+    return <Button variant={props.variant} href={props.href}>{props.children}</Button>;
   }
   if (props.to) {
     return (
@@ -13,10 +14,10 @@ const Button = props => {
     );
   }
   return (
-    <button type={props.type} onClick={props.onClick} disabled={props.disabled}>
+    <Button variant={props.variant} type={props.type} onClick={props.onClick} disabled={props.disabled}>
       {props.children}
-    </button>
+    </Button>
   );
 };
 
-export default Button;
+export default ButtonTemplate;

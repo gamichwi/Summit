@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Card, ListGroup } from "react-bootstrap";
 
-import Button from "../../shared/components/FormElements/Button";
+import ButtonTemplate from "../../shared/components/FormElements/Button";
 import ModalTemplate from "../../shared/components/UIElements/Modal";
 
 const SummitItem = props => {
@@ -17,7 +17,7 @@ const SummitItem = props => {
         show={showMap}
         onHide={closeMapHandler}
         header={props.title}
-        footer={<Button onClick={closeMapHandler}>CLOSE</Button>}>
+        footer={<ButtonTemplate onClick={closeMapHandler}>CLOSE</ButtonTemplate>}>
 
       <div className='map-container'>
         <h2>THE MAP!</h2>
@@ -31,9 +31,9 @@ const SummitItem = props => {
             <Card.Title>{props.title}</Card.Title>
             <Card.Text>{props.location}</Card.Text>
             <Card.Text>Countdown</Card.Text>
-            <Button onClick={openMapHandler}>MAP</Button>
-            <Button to={`/summits/${props.id}`}>EDIT</Button>
-            <Button>DELETE</Button>
+            <ButtonTemplate onClick={openMapHandler}>MAP</ButtonTemplate>
+            <ButtonTemplate variant={'secondary'} href={`/summits/${props.id}`}>EDIT</ButtonTemplate>
+            <ButtonTemplate variant={'danger'}>DELETE</ButtonTemplate>
           </Card.ImgOverlay>
         </Card>
       </ListGroup.Item>

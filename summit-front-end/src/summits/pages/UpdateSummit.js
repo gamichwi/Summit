@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import Input from "../../shared/components/FormElements/Input";
-import Button from "../../shared/components/FormElements/Button";
+import ButtonTemplate from "../../shared/components/FormElements/Button";
 import { VALIDATOR_REQUIRE } from "../../shared/util/validators";
 import { useForm } from "../../shared/hooks/form-hook";
 
@@ -153,9 +153,9 @@ const UpdateSummit = () => {
         initialValue={formState.inputs.targetAddress.value}
         initialValid={formState.inputs.targetAddress.isValid}
       />
-      <Button type="submit" disabled={!formState.isValid}>
+      <ButtonTemplate type="submit" disabled={!formState.isValid}>
         UPDATE
-      </Button>
+      </ButtonTemplate>
     </form>
   );
 };
