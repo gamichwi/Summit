@@ -17,8 +17,6 @@ const SummitItem = props => {
         show={showMap}
         onHide={closeMapHandler}
         header={props.title}
-        contentClass="place-item__modal-content"
-        footerClass="place-item__modal-actions"
         footer={<Button onClick={closeMapHandler}>CLOSE</Button>}>
 
       <div className='map-container'>
