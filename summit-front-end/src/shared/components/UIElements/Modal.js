@@ -1,5 +1,7 @@
 import React from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
+
+import ButtonTemplate from "../FormElements/Button";
 
 const ModalTemplate = props => {  
     return (
@@ -9,11 +11,7 @@ const ModalTemplate = props => {
             <Modal.Title>{props.header}</Modal.Title>
           </Modal.Header>
           <Modal.Body>{props.children}</Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={props.onHide}>
-              Close
-            </Button>
-          </Modal.Footer>
+          <Modal.Footer>{props.footer}</Modal.Footer>
         </Modal>
       </>
     );
