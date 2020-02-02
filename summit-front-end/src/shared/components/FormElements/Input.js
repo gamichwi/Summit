@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from "react";
-import { InputGroup, Form, FormControl } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 
 import { validate } from "../../util/validators";
 
@@ -33,9 +33,8 @@ const Input = props => {
   const { id, onInput } = props;
   const { value, isValid } = inputState;
 
-  useEffect(
-    () => {
-      props.onInput(props.id, inputState.value, inputState.isValid);
+  useEffect(() => {
+      onInput(id, value, isValid);
     },
     //Hide warning about useEffect on the next line
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -61,7 +60,7 @@ const Input = props => {
   const element =
     props.element === "input" ? (
       <>
-          <FormControl
+          <Form.Control
             aria-label="Large"
             aria-describedby="inputGroup-sizing-sm"
             id={props.id}
@@ -74,15 +73,13 @@ const Input = props => {
       </>
     ) : (
     <>
-      <InputGroup size="lg">
-      <FormControl
+      <Form.Control
         id={props.id}
         rows={props.rows || 3}
         onChange={changeHandler}
         onBlur={touchHandler}
         value={inputState.value}
       />
-      </InputGroup>
       </>
     );
 

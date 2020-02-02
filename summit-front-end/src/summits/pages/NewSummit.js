@@ -28,7 +28,7 @@ const NewSummit = () => {
         id="title"
         element="input"
         type="text"
-        label="Summit Title"
+        label="What is your Summit?"
         validators={[VALIDATOR_REQUIRE()]}
         errorText="Please enter a valid title."
         onInput={inputHandler}
@@ -37,7 +37,7 @@ const NewSummit = () => {
         id="targetDate"
         element="input"
         type="text"
-        label="Summit Target Date"
+        label="Target Date"
         validators={[VALIDATOR_REQUIRE()]}
         errorText="Please enter a valid target date."
         onInput={inputHandler}
@@ -46,7 +46,7 @@ const NewSummit = () => {
         id="targetAddress"
         element="input"
         type="text"
-        label="Summit Target Location"
+        label="Target Location"
         validators={[VALIDATOR_REQUIRE()]}
         errorText="Please enter a valid location."
         onInput={inputHandler}

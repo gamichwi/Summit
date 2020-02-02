@@ -1,30 +1,62 @@
-import React from 'react';
-import { Form } from 'react-bootstrap';
-import ButtonTemplate from '../../shared/components/FormElements/Button';
+import React from "react";
+
+import Input from "../../shared/components/FormElements/Input";
+import ButtonTemplate from "../../shared/components/FormElements/Button";
+import {
+  VALIDATOR_EMAIL,
+  VALIDATOR_MINLENGTH
+} from "../../shared/util/validators";
+import { useForm } from "../../shared/hooks/form-hook";
 
 const Auth = () => {
-    return (
-        <Form>
-  <Form.Group controlId="formBasicEmail">
-    <Form.Label>Email address</Form.Label>
-    <Form.Control type="email" placeholder="Enter email" />
-    <Form.Text className="text-muted">
-      We'll never share your email with anyone else.
-    </Form.Text>
-  </Form.Group>
+  const [formState, inputHandler] = useForm(
+    {
+      email: {
+        value: "",
+        isValid: false
+      },
+      password: {
+        value: "",
+        isValid: false
+      }
+    },
+    false
+  );
 
-  <Form.Group controlId="formBasicPassword">
-    <Form.Label>Password</Form.Label>
-    <Form.Control type="password" placeholder="Password" />
-  </Form.Group>
-  <Form.Group controlId="formBasicCheckbox">
-    <Form.Check type="checkbox" label="Check me out" />
-  </Form.Group>
-  <ButtonTemplate variant="primary" type="submit">
-    Submit
-  </ButtonTemplate>
-</Form>
-    )
+  const authSubmitHandler = event => {
+    event.preventDefault();
+    console.log(formState.inputs);
+  };
+
+  return (
+    <>
+      <h2>Login Required</h2>
+      <form onSubmit={authSubmitHandler}>
+        <Input
+          element="input"
+          id="email"
+          type="email"
+          label="E-Mail"
+          validators={[VALIDATOR_EMAIL()]}
+          errorText="Please enter a valid email address."
+          onInput={inputHandler}
+        />
+        <Input
+          element="input"
+          id="password"
+          type="password"
+          label="Password"
+          validators={[VALIDATOR_MINLENGTH(8)]}
+          errorText="Please enter a valid password, at least 8 characters."
+          onInput={inputHandler}
+        />
+        <br />
+        <ButtonTemplate type="submit" disabled={!formState.isValid}>
+          LOGIN
+        </ButtonTemplate>
+      </form>
+    </>
+  );
 };
 
 export default Auth;
