@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Input from "../../shared/components/FormElements/Input";
 import ButtonTemplate from "../../shared/components/FormElements/Button";
 import {
   VALIDATOR_EMAIL,
-  VALIDATOR_MINLENGTH
+  VALIDATOR_MINLENGTH,
+  VALIDATOR_REQUIRE
 } from "../../shared/util/validators";
 import { useForm } from "../../shared/hooks/form-hook";
 
 const Auth = () => {
-  const [formState, inputHandler] = useForm(
+  const [isLoginMode, setIsLoginMode] = useState(true);
+
+  const [formState, inputHandler, setFormData] = useForm(
     {
       email: {
         value: "",
@@ -22,6 +25,28 @@ const Auth = () => {
     },
     false
   );
+  const switchModeHandler = () => {
+    if (!isLoginMode) {
+      setFormData(
+        {
+          name: undefined
+        },
+        formState.inputs.email.isValid && formState.inputs.password.isValid
+      );
+    } else {
+      setFormData(
+        {
+          ...formState.inputs,
+          name: {
+            value: "",
+            isValid: false
+          }
+        },
+        false
+      );
+    }
+    setIsLoginMode(prevMode => !prevMode);
+  };
 
   const authSubmitHandler = event => {
     event.preventDefault();
@@ -32,6 +57,18 @@ const Auth = () => {
     <>
       <h2>Login Required</h2>
       <form onSubmit={authSubmitHandler}>
+        {!isLoginMode && (
+          <Input
+            element="input"
+            id="name"
+            type="text"
+            label="Your Name"
+            validators={[VALIDATOR_REQUIRE()]}
+            errorText="Please enter your name."
+            onInput={inputHandler}
+          />
+        )}
+
         <Input
           element="input"
           id="email"
@@ -51,10 +88,13 @@ const Auth = () => {
           onInput={inputHandler}
         />
         <br />
-        <ButtonTemplate type="submit" disabled={!formState.isValid}>
-          LOGIN
-        </ButtonTemplate>
       </form>
+      <ButtonTemplate type="submit" disabled={!formState.isValid}>
+        {isLoginMode ? "LOGIN" : "SIGNUP"}
+      </ButtonTemplate>
+      <ButtonTemplate onClick={switchModeHandler} variant="secondary">
+        SWITCH TO {isLoginMode ? "SIGNUP" : "LOGIN"}
+      </ButtonTemplate>
     </>
   );
 };

@@ -51,6 +51,7 @@ const NewSummit = () => {
         errorText="Please enter a valid location."
         onInput={inputHandler}
       />
+      <br />
       <ButtonTemplate type="submit" disabled={!formState.isValid}>
         ADD SUMMIT
       </ButtonTemplate>

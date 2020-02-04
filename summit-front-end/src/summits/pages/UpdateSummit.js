@@ -153,6 +153,7 @@ const UpdateSummit = () => {
         initialValue={formState.inputs.targetAddress.value}
         initialValid={formState.inputs.targetAddress.isValid}
       />
+      <br />
       <ButtonTemplate type="submit" disabled={!formState.isValid}>
         UPDATE
       </ButtonTemplate>
