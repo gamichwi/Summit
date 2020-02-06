@@ -19,7 +19,7 @@ const summitSchema = new Schema({
         lng: {type: Number, required: false}
     },
     completedImage: {type: String, required: false},
-    creator: {type: String, required: true},
+    userId: {type: String, required: true},
     private: {type: Boolean, required: true},
     likes: {type: Number, required: false},
     summitWord: {type: Array, required: false}
