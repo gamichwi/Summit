@@ -8,13 +8,13 @@ const summitSchema = new Schema({
     setImage: {type: String, required: true},
     targetAddress: {type: String, required: true},
     targetDate: {type: Date, required: true},
-    targetLocation: {
+    targetCoordinates: {
         lat: {type: Number, required: true},
         lng: {type: Number, required: true}
     },
     completedAddress: {type: String, required: true},
     completedDate: {type: Date, required: false},
-    completedLocation: {
+    completedCoordinates: {
         lat: {type: Number, required: false},
         lng: {type: Number, required: false}
     },

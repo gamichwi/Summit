@@ -91,30 +91,40 @@ const createSummit = async (req, res, next) => {
     console.log(errors);
     return next(
       new HttpError(
-        "Invalid data entered. Please check what you have entered.", 422)
+        "Invalid data entered. Please check what you have entered.",
+        422
+      )
     );
   }
-  const { title, targetAddress, setDate, targetDate, userId, private } = req.body;
+  const {
+    title,
+    targetAddress,
+    setDate,
+    targetDate,
+    userId,
+    private
+  } = req.body;
   console.log(req.body);
   //get coordinates from google api using a function defined in util/location.js
   let coordinates;
   try {
     coordinates = await getCoordsForAddress(targetAddress);
-    console.log('coordinates', coordinates)
+    console.log("coordinates", coordinates);
   } catch (error) {
     return next(error); //forward the error if there is one.
   }
 
   const createdSummit = new Summit({
     title,
-    setDate:'01/01/20',
+    setDate: "01/01/20",
     setImage:
       "https://images.unsplash.com/photo-1579191203631-368691293d7a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
     targetAddress,
+    targetCoordinates: coordinates,
     targetDate,
     userId,
     private
-    });
+  });
 
   try {
     await createdSummit.save();
