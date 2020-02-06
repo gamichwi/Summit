@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -12,41 +12,73 @@ import NewSummit from "./summits/pages/NewSummit";
 import UserSummits from "./summits/pages/UserSummits";
 import UpdateSummit from "./summits/pages/UpdateSummit";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
-import Auth from './users/pages/Auth';
+import Auth from "./users/pages/Auth";
+import { AuthContext } from "./shared/context/auth-context";
 
 import "./App.css";
 
 const App = () => {
-  return (
-    <Router>
-      <MainNavigation />
-      <main>
-        {/* if a correct path is entered switch will prevent the rest from loading. */}
-        <Switch>
-          <Route path="/" exact>
-            <Summits />
-          </Route>
-          <Route path="/:userId/summits" exact>
-            <UserSummits />
-          </Route>
-          <Route path="/users" exact>
-            <Users />
-          </Route>
-          <Route path="/summits/new" exact>
-            <NewSummit />
-          </Route>
-          <Route path="/summits/:summitId">
-            <UpdateSummit />
-          </Route>
-          <Route path="/auth">
-            <Auth />
-          </Route>
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-          {/* Redirect to summits for all other routes */}
-          <Redirect to="/" />
-        </Switch>
-      </main>
-    </Router>
+  const login = useCallback(() => {
+    setIsLoggedIn(true);
+  }, []);
+  const logout = useCallback(() => {
+    setIsLoggedIn(false);
+  }, []);
+
+  let routes;
+
+  console.log(isLoggedIn);
+
+  if (isLoggedIn) {
+    routes = (
+      //if a correct path is entered switch will prevent the rest from loading.
+      <Switch>
+        <Route path="/" exact>
+          <Summits />
+        </Route>
+        <Route path="/users" exact>
+          <Users />
+        </Route>
+        <Route path="/:userId/summits" exact>
+          <UserSummits />
+        </Route>
+        <Route path="/summits/new" exact>
+          <NewSummit />
+        </Route>
+        <Route path="/summits/:summitId">
+          <UpdateSummit />
+        </Route>
+        <Redirect to="/" />
+      </Switch>
+    );
+  } else {
+    routes = (
+      <Switch>
+        <Route path="/" exact>
+          <Summits />
+        </Route>
+        <Route path="/:userId/summits" exact>
+          <UserSummits />
+        </Route>
+        <Route path="/auth">
+          <Auth />
+        </Route>
+        <Redirect to="/auth" />
+      </Switch>
+    );
+  }
+
+  return (
+    <AuthContext.Provider
+      value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
+    >
+      <Router>
+        <MainNavigation />
+        <main>{routes}</main>
+      </Router>
+    </AuthContext.Provider>
   );
 };
 
