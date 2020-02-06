@@ -3,6 +3,7 @@ const { validationResult } = require("express-validator");
 
 const HttpError = require("../models/http-error");
 const getCoordsForAddress = require("../util/location");
+const Summit = require("../models/summit");
 
 let DUMMY_PLACES = [
   {
@@ -79,7 +80,7 @@ const getSummitsByUserId = (req, res, next) => {
       new HttpError("Could not find summits for the provided User Id", 404)
     );
   }
-  
+
   res.json({ summits });
 };
 
@@ -88,36 +89,51 @@ const createSummit = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     console.log(errors);
-     return next(
+    return next(
       new HttpError(
-        "Invalid data entered. Please check what you have entered.", 422));
-      }
-      const {
-        title,
-        targetAddress,
-        // targetCoordinates,
-        targetDate,
-        userId
-      } = req.body;
-console.log(req.body)
-    //get coordinates from google api using a function defined in util/location.js
-    let coordinates;
-    try {
-      coordinates = await getCoordsForAddress(targetAddress);
-    } catch (error) {
-      return next(error); //forward the error if there is one.
-    }
-  
-  const createdSummit = {
-    id: uuid(),
+        "Invalid data entered. Please check what you have entered.",
+        422
+      )
+    );
+  }
+  const {
     title,
     targetAddress,
-    targetCoordinates: coordinates,
+    // targetCoordinates,
     targetDate,
     userId
-  };
+  } = req.body;
+  console.log(req.body);
+  //get coordinates from google api using a function defined in util/location.js
+  let coordinates;
+  try {
+    coordinates = await getCoordsForAddress(targetAddress);
+  } catch (error) {
+    return next(error); //forward the error if there is one.
+  }
 
-  DUMMY_PLACES.push(createdSummit);
+  const createdSummit = new Summit({
+    title,
+    address,
+    setDate,
+    setImage:
+      "https://images.unsplash.com/photo-1579191203631-368691293d7a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
+    targetAddress,
+    targetDate,
+    targetLocation,
+    creator,
+    private
+    });
+
+  try {
+    await createdSummit.save();
+  } catch (err) {
+    const error = new HttpError(
+      "Creating your Summit failed, please try again.",
+      500
+    );
+    return next(error);
+  }
 
   res.status(201).json({ summit: createdSummit });
 };

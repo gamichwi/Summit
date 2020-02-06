@@ -28,11 +28,13 @@ app.use((error, req, res, next) => {
 });
 
 mongoose
-  .connect('mongodb+srv://Gavin:<mongodb+srv://Gavin:Summit123@cluster0-z3zxc.mongodb.net/summits?retryWrites=true&w=majority>@cluster0-z3zxc.mongodb.net/test?retryWrites=true&w=majority')
-  .then(()=> {
-      app.listen(5000)
-    })
+  .connect(
+    "mongodb+srv://Gavin:<mongodb+srv://Gavin:Summit123@cluster0-z3zxc.mongodb.net/summits?retryWrites=true&w=majority>@cluster0-z3zxc.mongodb.net/summit?retryWrites=true&w=majority",
+    { useNewUrlParser: true }
+  )
+  .then(() => {
+    app.listen(5000);
+  })
   .catch(error => {
-      console.log(error)
+    console.log(error);
   });
-
