@@ -29,12 +29,12 @@ app.use((error, req, res, next) => {
 
 mongoose
   .connect(
-    "mongodb+srv://Gavin:<mongodb+srv://Gavin:Summit123@cluster0-z3zxc.mongodb.net/summits?retryWrites=true&w=majority>@cluster0-z3zxc.mongodb.net/summit?retryWrites=true&w=majority",
-    { useNewUrlParser: true }
+    "mongodb+srv://Gavin:Summit123@cluster0-z3zxc.mongodb.net/summits?retryWrites=true&w=majority>@cluster0-z3zxc.mongodb.net/summit?retryWrites=true&w=majority",
+    { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => {
     app.listen(5000);
   })
-  .catch(error => {
-    console.log(error);
+  .catch(err => {
+    console.log(err);
   });
