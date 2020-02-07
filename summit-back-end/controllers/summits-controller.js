@@ -199,12 +199,27 @@ try{
   res.status(200).json({ summit: summit.toObject({ getters: true }) });
 };
 
-const deleteSummit = (req, res, next) => {
+const deleteSummit = async(req, res, next) => {
   const summitId = req.params.summitId;
-  if (!DUMMY_PLACES.find(s => s.id === summitId)) {
-    return next(new HttpError("Could not find a summit for that id.", 404));
+  let summit;
+  try{
+    summit = await Summit.findById(summitId);
+  } catch(err){
+    const error = new HttpError(
+      'An error has occured. Could not delete place.', 500
+    );
+    return next(error);
   }
-  DUMMY_PLACES = DUMMY_PLACES.filter(s => s.id !== summitId);
+
+  try {
+    await summit.remove();
+  } catch(err){
+    const error = new HttpError(
+      'An error has occured. Could not delete place.', 500
+    );
+    return next(error);
+  }
+  
   res.status(200).json({ message: "Deleted Summit." });
 };
 
