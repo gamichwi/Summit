@@ -55,25 +55,39 @@ let DUMMY_PLACES = [
   }
 ];
 
-const getSummitById = (req, res, next) => {
+const getSummitById = async (req, res, next) => {
   const summitId = req.params.summitId;
-  const summit = DUMMY_PLACES.find(s => {
-    return s.id === summitId;
-  });
+  let summit;
+  try {
+    summit = await Summit.findById(summitId);
+  } catch (err) {
+    const error = new HttpError(
+      "An error occured. Could not find that Summit.",
+      500
+    );
+    return next(error);
+  }
+
   if (!summit) {
     return next(
       new HttpError("Could not find a summit for the provided Summit Id", 404)
     );
   }
-  res.json({ summit });
+  res.json({ summit: summit.toObject({ getters: true }) }); //removes _ from _id
 };
 
-const getSummitsByUserId = (req, res, next) => {
+const getSummitsByUserId = async (req, res, next) => {
   const userId = req.params.userId;
-
-  const summits = DUMMY_PLACES.filter(s => {
-    return s.userId === userId;
-  });
+  let summits;
+  try {
+    summits = await Summit.find({ userId: userId });
+  } catch (err) {
+    const error = new HttpError(
+      "An error occured. Please try again later.",
+      500
+    );
+    return next(error);
+  }
 
   if (!summits || summits.length === 0) {
     return next(
@@ -81,7 +95,9 @@ const getSummitsByUserId = (req, res, next) => {
     );
   }
 
-  res.json({ summits });
+  res.json({
+    summits: summits.map(summit => summit.toObject({ getters: true }))
+  }); // removes _ from _id
 };
 
 const createSummit = async (req, res, next) => {
