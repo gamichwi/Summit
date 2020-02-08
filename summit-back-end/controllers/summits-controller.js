@@ -1,9 +1,11 @@
 const uuid = require("uuid/v4");
 const { validationResult } = require("express-validator");
+const mongoose = require("mongoose");
 
 const HttpError = require("../models/http-error");
 const getCoordsForAddress = require("../util/location");
 const Summit = require("../models/summit");
+const User = require("../models/user");
 
 let DUMMY_PLACES = [
   {
@@ -112,14 +114,7 @@ const createSummit = async (req, res, next) => {
       )
     );
   }
-  const {
-    title,
-    targetAddress,
-    setDate,
-    targetDate,
-    userId,
-    private
-  } = req.body;
+  const { title, targetAddress, targetDate, userId, private } = req.body;
   console.log(req.body);
   //get coordinates from google api using a function defined in util/location.js
   let coordinates;
@@ -142,8 +137,33 @@ const createSummit = async (req, res, next) => {
     private
   });
 
+  //check if the user id exists already
+  let user;
   try {
-    await createdSummit.save();
+    user = await User.findById(userId);
+  } catch (err) {
+    const error = new HttpError(
+      "Creating your summit failed. Please try again later",
+      500
+    );
+    return next(error);
+  }
+
+  if (!user) {
+    const error = new HttpError("Could not find that user.", 404);
+    console.log(error);
+    return next(error);
+  }
+
+  try {
+    //store summit
+    const sess = await mongoose.startSession();
+    sess.startTransaction();
+    await createdSummit.save({ session: sess });
+    //add summit id to the user
+    user.summits.push(createdSummit);
+    await user.save({ session: sess });
+    await sess.commitTransaction(); // saves to the database
   } catch (err) {
     const error = new HttpError(
       "Creating your Summit failed, please try again.",
@@ -170,16 +190,16 @@ const updateSummit = async (req, res, next) => {
   const { title, targetAddress, targetCoordinates, targetDate } = req.body;
   const summitId = req.params.summitId;
 
-let summit;
-try{
-  summit = await Summit.findById(summitId);
-} catch(err) {
-  const error = new HttpError(
-    "An error has occured. Please try again later.",
-    500
-  );
-  return next(error);
-}
+  let summit;
+  try {
+    summit = await Summit.findById(summitId);
+  } catch (err) {
+    const error = new HttpError(
+      "An error has occured. Please try again later.",
+      500
+    );
+    return next(error);
+  }
 
   summit.title = title;
   summit.targetAddress = targetAddress;
@@ -188,7 +208,7 @@ try{
 
   try {
     await summit.save();
-  } catch(err){
+  } catch (err) {
     const error = new HttpError(
       "An error has occured. Please try again later.",
       500
@@ -199,27 +219,39 @@ try{
   res.status(200).json({ summit: summit.toObject({ getters: true }) });
 };
 
-const deleteSummit = async(req, res, next) => {
+const deleteSummit = async (req, res, next) => {
   const summitId = req.params.summitId;
   let summit;
-  try{
-    summit = await Summit.findById(summitId);
-  } catch(err){
+  try {
+    summit = await Summit.findById(summitId).populate("userId"); //refer to a document in a different collection
+  } catch (err) {
     const error = new HttpError(
-      'An error has occured. Could not delete place.', 500
+      "An error has occured. Could not delete place.",
+      500
     );
     return next(error);
   }
 
+  if (!summit) {
+    const error = new HttpError("Could not find this Summit", 404);
+    return next(error);
+  }
+
   try {
-    await summit.remove();
-  } catch(err){
+    const sess = await mongoose.startSession();
+    sess.startTransaction();
+    await summit.remove({ session: sess });
+    summit.userId.summits.pull(summit); // removes from user record.
+    await summit.userId.save({ session: sess }); //saves updated user.
+    await sess.commitTransaction();
+  } catch (err) {
     const error = new HttpError(
-      'An error has occured. Could not delete place.', 500
+      "An error has occured. Could not delete place.",
+      500
     );
     return next(error);
   }
-  
+
   res.status(200).json({ message: "Deleted Summit." });
 };
 
