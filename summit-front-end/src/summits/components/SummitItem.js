@@ -4,7 +4,7 @@ import { Card, ListGroup } from "react-bootstrap";
 import ButtonTemplate from "../../shared/components/FormElements/Button";
 import ModalTemplate from "../../shared/components/UIElements/Modal";
 import Map from "../../shared/components/UIElements/Map";
-import { AuthContext } from '../../shared/context/auth-context';
+import { AuthContext } from "../../shared/context/auth-context";
 
 const SummitItem = props => {
   const auth = useContext(AuthContext);
@@ -66,16 +66,20 @@ const SummitItem = props => {
             <Card.Text>Countdown</Card.Text>
             <ButtonTemplate onClick={openMapHandler}>MAP</ButtonTemplate>
 
-            {auth.isLoggedIn && 
-            <ButtonTemplate variant={"secondary"} href={`/summits/${props.id}`}>
-              EDIT
-            </ButtonTemplate>}
+            {auth.isLoggedIn && (
+              <ButtonTemplate
+                variant={"secondary"}
+                href={`/summits/${props.id}`}
+              >
+                EDIT
+              </ButtonTemplate>
+            )}
 
-            {auth.isLoggedIn && 
-            <ButtonTemplate variant={"danger"} onClick={openWarningHandler}>
-              DELETE
-            </ButtonTemplate>
-            }
+            {auth.isLoggedIn && (
+              <ButtonTemplate variant={"danger"} onClick={openWarningHandler}>
+                DELETE
+              </ButtonTemplate>
+            )}
           </Card.ImgOverlay>
         </Card>
       </ListGroup.Item>
