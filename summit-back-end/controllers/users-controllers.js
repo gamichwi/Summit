@@ -45,7 +45,7 @@ const signup = async (req, res, next) => {
       )
     );
   }
-  const { name, email, password, summits, friends } = req.body;
+  const { name, email, password, friends } = req.body;
 
   let existingUser;
   try {
@@ -66,7 +66,7 @@ const signup = async (req, res, next) => {
     password,
     image:
       "https://pngriver.com/wp-content/uploads/2018/04/Download-Male-User-Logo-Png-Image-69558-For-Designing-Projects.png",
-    summits,
+    summits:[],
     friends
   });
 

@@ -19,10 +19,10 @@ const summitSchema = new Schema({
     lng: { type: Number, required: false }
   },
   completedImage: { type: String, required: false },
-  userId: { type: String, required: true },
   private: { type: Boolean, required: true },
   likes: { type: Number, required: false },
-  summitWord: { type: Array, required: false }
+  summitWord: { type: Array, required: false },
+  userId: { type: mongoose.Types.ObjectId, required: true, ref:'User' }//connects to the user schema
 });
 
 module.exports = mongoose.model("Summit", summitSchema);

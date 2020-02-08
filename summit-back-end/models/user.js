@@ -8,8 +8,8 @@ const userSchema = new Schema({
     email: { type: String, required: true, unique: true},//unique creates an index that speeds up the query process
     password: { type: String, required: true, minlength: 8 },
     image: {type: String, required: true},
-    summits: {type: String, required: true},
-    friends: {type: Array, required: false}
+    friends: {type: Array, required: false},
+    summits: [{ type: mongoose.Types.ObjectId, required: true, ref:'Summit' }]//connects to the user schema. In an array because there are multiple places.
 })
 
 userSchema.plugin(uniqueValidator);//ensures email is unique.
