@@ -2,6 +2,8 @@ import React, { useState, useContext } from "react";
 
 import Input from "../../shared/components/FormElements/Input";
 import ButtonTemplate from "../../shared/components/FormElements/Button";
+import ErrorModal from '../../shared/components/UIElements/Modal';
+import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import {
   VALIDATOR_EMAIL,
   VALIDATOR_MINLENGTH,
@@ -13,6 +15,8 @@ import { AuthContext } from "../../shared/context/auth-context";
 const Auth = () => {
   const auth = useContext(AuthContext);
   const [isLoginMode, setIsLoginMode] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const [formState, inputHandler, setFormData] = useForm(
     {
@@ -57,6 +61,7 @@ const Auth = () => {
     if (isLoginMode) {
     } else {
       try {
+        setIsLoading(true);
         const response = await fetch("http://localhost:5000/api/users/signup", {
           method: "POST",
           headers: {
@@ -70,16 +75,31 @@ const Auth = () => {
         });
 
         const responseData = await response.json();
+        if (!response.ok) {
+          throw new Error(responseData.message);
+        }
         console.log("response data", responseData);
+        setIsLoading(false);
+        auth.login();
       } catch (err) {
         console.log(err);
+        setIsLoading(false);
+        setError(
+          err.message || "An error has occured. Please try again later."
+        );
       }
     }
-    auth.login();
+  };
+
+  const errorHandler = () => {
+    setError(null);
   };
 
   return (
-    <>
+    <React.Fragment>
+      <ErrorModal error={error} hide={errorHandler}/>
+
+      {isLoading && <LoadingSpinner asOverlay />}
       <h2>Login Required</h2>
       <form onSubmit={authSubmitHandler}>
         {!isLoginMode && (
@@ -120,7 +140,7 @@ const Auth = () => {
           SWITCH TO {isLoginMode ? "SIGNUP" : "LOGIN"}
         </ButtonTemplate>
       </form>
-    </>
+    </React.Fragment>
   );
 };
 
