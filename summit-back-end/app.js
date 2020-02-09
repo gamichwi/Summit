@@ -9,7 +9,21 @@ const HttpError = require("./models/http-error");
 
 const app = express();
 
+// app.use(cors());
+
 app.use(bodyParser.json());
+
+// headers to be added to the responses to avoid CORS error
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*"); //star allows every domain to send
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  ); //Which headers to be handled on incoming requests
+  res.setHeader('Acces-Control-Allow-Methods', 'GET, POST, PATCH, DELETE'); //allow http requests
+
+  next();
+});
 
 app.use("/api/summits", summitsRoutes);
 app.use("/api/users", usersRoutes);
