@@ -19,7 +19,7 @@ const UsersList = props => {
           id={user.id}
           image={user.image}
           name={user.name}
-          summitCount={user.summits}
+          summitCount={user.summits.length}
         />
       ))}
     </ListGroup>
