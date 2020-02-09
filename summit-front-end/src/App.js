@@ -29,8 +29,6 @@ const App = () => {
 
   let routes;
 
-  console.log(isLoggedIn);
-
   if (isLoggedIn) {
     routes = (
       //if a correct path is entered switch will prevent the rest from loading.
