@@ -59,7 +59,7 @@ const Auth = () => {
     event.preventDefault();
     if (isLoginMode) {
       try {
-        await sendRequest(
+        const responseData = await sendRequest(
           //url, method, body, headers
           "http://localhost:5000/api/users/login",
           "POST",
@@ -69,13 +69,14 @@ const Auth = () => {
           }),
           { "Content-Type": "application/json" }
         );
-        auth.login();
+        console.log('responseData.user', responseData.user)
+        auth.login(responseData.user.id);
       } catch (err) {
         //handled in the http-hook
       }
     } else {
       try {
-        await sendRequest(
+        const responseData = await sendRequest(
           "http://localhost:5000/api/users/signup",
           "POST",
           JSON.stringify({
@@ -87,8 +88,8 @@ const Auth = () => {
             "Content-Type": "application/json"
           }
         );
-
-        auth.login();
+          console.log('responseData.user', responseData.user)
+        auth.login(responseData.user.id);
       } catch (err) {
         //handled in http-hook.
       }

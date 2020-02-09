@@ -27,7 +27,7 @@ const Users = () => {
       <ErrorModal error={error} hide={clearError} />
       {isLoading && (
         <>
-          <LoadingSpinner />
+          <LoadingSpinner asOverlay/>
         </>
       )}
       {!isLoading && loadedUsers && <UsersList items={loadedUsers} />};
