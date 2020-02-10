@@ -31,7 +31,7 @@ const NewSummit = () => {
     false
   );
 
-  const history = useHistory();
+  const history = useHistory();//allows navigation history
 
   const summitSubmitHandler = async event => {
     event.preventDefault();
@@ -43,20 +43,20 @@ const NewSummit = () => {
           title: formState.inputs.title.value,
           targetAddress: formState.inputs.targetAddress.value,
           targetDate: formState.inputs.targetDate.value,
-          private: formState.inputs.private.value,
+          // private: formState.inputs.private.value,
           userId: auth.userId
         }),
         { "Content-Type": "application/json" }
       );
-      history.push("/");
+      history.push("/");//Re-Direct to /
     } catch (err) {
-      //handled in the http-hook
+     console.log(err);
     }
   };
 
   return (
     <React.Fragment>
-      <ErrorModal error={error} onClear={clearError} />
+      <ErrorModal error={error} hide={clearError} />
       <form onSubmit={summitSubmitHandler}>
         {isLoading && <LoadingSpinner asOverlay />}
         <Input
