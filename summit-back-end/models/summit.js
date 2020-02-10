@@ -19,7 +19,7 @@ const summitSchema = new Schema({
     lng: { type: Number, required: false }
   },
   completedImage: { type: String, required: false },
-  private: { type: Boolean, required: true },
+  private: { type: Boolean, required: false },
   likes: { type: Number, required: false },
   summitWord: { type: Array, required: false },
   userId: { type: mongoose.Types.ObjectId, required: true, ref:'User' }//connects to the user schema

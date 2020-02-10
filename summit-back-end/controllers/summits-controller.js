@@ -56,7 +56,7 @@ const createSummit = async (req, res, next) => {
   // check any validation errors set with express-validator
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    console.log(errors);
+    //console.log(errors);
     return next(
       new HttpError(
         "Invalid data entered. Please check what you have entered.",
@@ -84,7 +84,7 @@ const createSummit = async (req, res, next) => {
     targetCoordinates: coordinates,
     targetDate,
     userId,
-    private
+    // private
   });
 
   //check if the user id exists already
@@ -115,6 +115,8 @@ const createSummit = async (req, res, next) => {
     await user.save({ session: sess });
     await sess.commitTransaction(); // saves to the database
   } catch (err) {
+    console.log('check this one.');
+    console.log(err);
     const error = new HttpError(
       "Creating your Summit failed, please try again.",
       500
