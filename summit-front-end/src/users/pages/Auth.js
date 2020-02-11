@@ -69,11 +69,9 @@ const Auth = () => {
           }),
           { "Content-Type": "application/json" }
         );
-        console.log('responseData.user', responseData.user)
+        console.log("responseData.user", responseData.user);
         auth.login(responseData.user.id);
-      } catch (err) {
-        //handled in the http-hook
-      }
+      } catch (err) {}
     } else {
       try {
         const responseData = await sendRequest(
@@ -88,7 +86,6 @@ const Auth = () => {
             "Content-Type": "application/json"
           }
         );
-          console.log('responseData.user', responseData.user)
         auth.login(responseData.user.id);
       } catch (err) {
         //handled in http-hook.

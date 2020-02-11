@@ -14,7 +14,7 @@ const UserItem = props => {
         </Link>
         <Card.Body>
           <Card.Title>{props.name}</Card.Title>
-          <Card.Text>Conquered {props.summitCount} summits!</Card.Text>
+          <Card.Text>Conquering {props.summitCount} summits!</Card.Text>
         </Card.Body>
       </Card>
     </ListGroup.Item>

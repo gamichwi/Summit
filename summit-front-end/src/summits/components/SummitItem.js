@@ -59,10 +59,10 @@ const SummitItem = props => {
 
       <ListGroup.Item>
         <Card className="bg-dark text-white">
-          <Card.Img src={props.completedImage} alt={props.title} />
+          <Card.Img src={props.setImage} alt={props.title} />
           <Card.ImgOverlay>
             <Card.Title>{props.title}</Card.Title>
-            <Card.Text>{props.location}</Card.Text>
+            <Card.Text>{props.targetLocation}</Card.Text>
             <Card.Text>Countdown</Card.Text>
             <ButtonTemplate onClick={openMapHandler}>MAP</ButtonTemplate>
 

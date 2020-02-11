@@ -16,8 +16,8 @@ const DUMMY_PLACES = [
     targetDate: "THIS DATE",
     completedDate: "",
     completed: false,
-    setImageUrl: "https://i.ytimg.com/vi/xXq0KPEJuBk/maxresdefault.jpg",
-    completedImageUrl:
+    setImage: "https://i.ytimg.com/vi/xXq0KPEJuBk/maxresdefault.jpg",
+    completedImage:
       "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.z1EQMkYXiRUgWV9rkGpT9AHaE8%26pid%3DApi&f=1",
     setCoordinates: {},
     targetCoordinates: {},

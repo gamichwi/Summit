@@ -24,12 +24,12 @@ return (
         setDate={summit.setDate}
         completedDate={summit.completedDate}
         completed={summit.completed}
-        setImage={summit.setImageUrl}
-        completedImage={summit.completedImageUrl}
+        setImage={summit.setImage}
+        completedImage={summit.completedImage}
         setCoordinates={summit.setLocation}
         completedCoordinates={summit.completedLocation}
         targetDate={summit.targetDate}
-        targetCoordinates={summit.targetLocation}
+        targetCoordinates={summit.targetCoordinates}
         likes={summit.likes}
         summitWord={summit.word}
         private={summit.private}
