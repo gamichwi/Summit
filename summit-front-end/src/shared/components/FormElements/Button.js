@@ -8,7 +8,7 @@ const ButtonTemplate = props => {
   }
   if (props.to) {
     return (
-      <Link to={props.to} exact={props.exact}>
+      <Link to={props.to} exact={props.exact} className="btn btn-secondary">
         {props.children}
       </Link>
     );

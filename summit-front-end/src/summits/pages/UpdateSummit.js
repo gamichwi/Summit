@@ -1,64 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState, useContext } from "react";
+import { useParams, useHistory } from "react-router-dom";
 
 import Input from "../../shared/components/FormElements/Input";
 import ButtonTemplate from "../../shared/components/FormElements/Button";
+import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
+import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import { VALIDATOR_REQUIRE } from "../../shared/util/validators";
 import { useForm } from "../../shared/hooks/form-hook";
-
-const DUMMY_PLACES = [
-  {
-    id: "p1",
-    creatorId: "u1",
-    title: "Win a foosball championship",
-    completedAddress: "Bartronica, Melbourne",
-    setDate: "",
-    targetDate: "THIS DATE",
-    completedDate: "",
-    completed: false,
-    setImage: "https://i.ytimg.com/vi/xXq0KPEJuBk/maxresdefault.jpg",
-    completedImage:
-      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.z1EQMkYXiRUgWV9rkGpT9AHaE8%26pid%3DApi&f=1",
-    setCoordinates: {},
-    targetCoordinates: {},
-    targetAddress: "asfasf",
-    completedCoordinates: {
-      lat: "-37.8785909",
-      lng: "144.9739747"
-    },
-    likes: [],
-    summitWord: [],
-    private: true
-  },
-  {
-    id: "p2",
-    creatorId: "u2",
-    title: "Win a boxing championship",
-    completedAddress: "Melbourne Fight Club",
-    setDate: "",
-    targetDate: "asf",
-    completedDate: "",
-    completed: false,
-    setImageUrl:
-      "https://media2.trover.com/T/58c263cd74eb4650f0022ede/fixedw_large_4x.jpg",
-    completedImageUrl:
-      "https://akm-img-a-in.tosshub.com/indiatoday/images/story/201910/jamuna9102019-770x433.png?VB4oJ8dItSqFhwwpLlkhrdCDSzixJd4w",
-    setCoordinates: {},
-    targetCoordinates: {},
-    targetAddress: "",
-    completedCoordinates: {
-      lat: "-37.7873385",
-      lng: "144.8642536"
-    },
-    likes: [],
-    summitWord: [],
-    private: true
-  }
-];
+import { useHttpClient } from "../../shared/hooks/http-hook";
+import { AuthContext } from "../../shared/context/auth-context";
 
 const UpdateSummit = () => {
-  const [isLoading, setIsLoading] = useState(true);
-
+  const auth = useContext(AuthContext);
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const [loadedSummit, setLoadedSummit] = useState();
+  const history = useHistory();
   const summitId = useParams().summitId;
 
   const [formState, inputHandler, setFormData] = useForm(
@@ -79,85 +35,106 @@ const UpdateSummit = () => {
     false
   );
 
-  const identifiedSummit = DUMMY_PLACES.find(s => s.id === summitId);
-
   useEffect(() => {
-    if (identifiedSummit) {
-      setFormData(
-        {
-          title: {
-            value: identifiedSummit.title,
-            isValid: true
+    const fetchSummit = async () => {
+      try {
+        const responseData = await sendRequest(
+          `http://localhost:5000/api/summits/${summitId}`,
+        );
+        setLoadedSummit(responseData.summit);
+        setFormData(
+          {
+            title: {
+              value: responseData.summit.title,
+              isValid: true
+            },
+            targetDate: {
+              value: responseData.summit.targetDate,
+              isValid: true
+            },
+            targetAddress: {
+              value: responseData.summit.targetAddress,
+              isValid: true
+            }
           },
-          targetDate: {
-            value: identifiedSummit.targetDate,
-            isValid: true
-          },
-          targetAddress: {
-            value: identifiedSummit.targetAddress,
-            isValid: true
-          }
-        },
-        true
-      );
-    }
+          true
+        );
+      } catch (err) {}
+    };
+    fetchSummit();
+  }, [sendRequest, summitId, setFormData]);
 
-    setIsLoading(false);
-  }, [setFormData, identifiedSummit]);
-
-  const summitUpdateSubmitHandler = event => {
+  const summitUpdateSubmitHandler = async event => {
     event.preventDefault();
-    console.log(formState.inputs);
+    // try {
+      await sendRequest(
+        `api/summits/${summitId}`,
+        "PATCH",
+        JSON.stringify({
+          title: formState.inputs.title.value,
+          targetAddress: formState.inputs.targetAddress.value,
+          targetDate: formState.inputs.targetDate.value
+        }),
+        {
+          "Content-Type": "application/json"
+        }
+      );
+      history.push("/" + auth.userId + "/summits");
+    // } catch (err) {
+      // console.log(err);
+    // }
   };
 
-  if (!identifiedSummit) {
+  if (!isLoading && !loadedSummit) {
     return <h2>Could not find the summit you're looking for.</h2>;
   }
 
-  if (isLoading) {
-    return <h2>Loading...</h2>;
-  }
-
   return (
-    <form onSubmit={summitUpdateSubmitHandler}>
-      <Input
-        id="title"
-        element="input"
-        type="text"
-        label="What is your Summit?"
-        validators={[VALIDATOR_REQUIRE()]}
-        errorText="Please enter a valid Summit Title."
-        onInput={inputHandler}
-        initialValue={formState.inputs.title.value}
-        initialValid={formState.inputs.title.isValid}
-      />
-      <Input
-        id="targetDate"
-        element="input"
-        type="text"
-        label="Target Date"
-        validators={[VALIDATOR_REQUIRE()]}
-        errorText="Please enter a valid Summit Target Date."
-        onInput={inputHandler}
-        initialValue={formState.inputs.targetDate.value}
-        initialValid={formState.inputs.targetDate.isValid}
-      />
-      <Input
-        id="targetAddress"
-        element="input"
-        type="text"
-        label="Target Location"
-        validators={[VALIDATOR_REQUIRE()]}
-        errorText="Please enter a valid Summit Target Location."
-        onInput={inputHandler}
-        initialValue={formState.inputs.targetAddress.value}
-        initialValid={formState.inputs.targetAddress.isValid}
-      />
-      <br />
-      <ButtonTemplate type="submit" disabled={!formState.isValid}>
-        UPDATE
-      </ButtonTemplate>
-    </form>
+    <React.Fragment>
+      <ErrorModal error={error} hide={clearError} />
+        {isLoading && <LoadingSpinner asOverlay />}
+        {!isLoading && loadedSummit && (
+      <form onSubmit={summitUpdateSubmitHandler}>
+        <Input
+          id="title"
+          element="input"
+          type="text"
+          label="What is your Summit?"
+          validators={[VALIDATOR_REQUIRE()]}
+          errorText="Please enter a valid Summit Title."
+          onInput={inputHandler}
+          initialValue={loadedSummit.title}
+          initialValid={true}
+        />
+        <Input
+          id="targetDate"
+          element="input"
+          type="text"
+          label="Target Date"
+          validators={[VALIDATOR_REQUIRE()]}
+          errorText="Please enter a valid Summit Target Date."
+          onInput={inputHandler}
+          initialValue={loadedSummit.targetDate}
+          initialValid={true}
+        />
+        <Input
+          id="targetAddress"
+          element="input"
+          type="text"
+          label="Target Location"
+          validators={[VALIDATOR_REQUIRE()]}
+          errorText="Please enter a valid Summit Target Location."
+          onInput={inputHandler}
+          initialValue={loadedSummit.targetAddress}
+          initialValid={true}
+        />
+        <br />
+        <ButtonTemplate type="submit" disabled={!formState.isValid}>
+          UPDATE
+        </ButtonTemplate>
+      </form>
+        )}
+    </React.Fragment>
   );
 };
 

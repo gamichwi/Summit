@@ -69,7 +69,7 @@ const SummitItem = props => {
             {auth.isLoggedIn && (
               <ButtonTemplate
                 variant={"secondary"}
-                href={`/summits/${props.id}`}
+                to={`/summits/${props.id}`}
               >
                 EDIT
               </ButtonTemplate>
