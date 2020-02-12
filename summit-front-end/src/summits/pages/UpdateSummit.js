@@ -68,7 +68,7 @@ const UpdateSummit = () => {
     event.preventDefault();
     // try {
       await sendRequest(
-        `api/summits/${summitId}`,
+        `/api/summits/${summitId}`,
         "PATCH",
         JSON.stringify({
           title: formState.inputs.title.value,
