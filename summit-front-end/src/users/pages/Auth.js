@@ -1,9 +1,11 @@
 import React, { useState, useContext } from "react";
+import { Container, Col, Image, Row } from 'react-bootstrap';
 
 import Input from "../../shared/components/FormElements/Input";
 import ButtonTemplate from "../../shared/components/FormElements/Button";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
+import ImageUpload from '../../shared/components/FormElements/ImageUpload';
 import {
   VALIDATOR_EMAIL,
   VALIDATOR_MINLENGTH,
@@ -69,7 +71,6 @@ const Auth = () => {
           }),
           { "Content-Type": "application/json" }
         );
-        console.log("responseData.user", responseData.user);
         auth.login(responseData.user.id);
       } catch (err) {}
     } else {
@@ -111,6 +112,24 @@ const Auth = () => {
             onInput={inputHandler}
           />
         )}
+
+          {!isLoginMode && 
+          <Container>
+          <Row>
+            <Col xs={6} md={4}>
+            <ImageUpload center id="image"/>
+              <Image src="holder.js/171x180" rounded />
+            </Col>
+            <Col xs={6} md={4}>
+              <Image src="holder.js/171x180" roundedCircle />
+            </Col>
+            <Col xs={6} md={4}>
+              <Image src="holder.js/171x180" thumbnail />
+            </Col>
+          </Row>
+        </Container>
+          }
+          
 
         <Input
           element="input"
