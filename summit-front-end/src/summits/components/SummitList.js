@@ -18,7 +18,7 @@ return (
       <SummitItem
         key={summit.id}
         id={summit.id}
-        creatorId={summit.creator}
+        userId={summit.userId}
         title={summit.title}
         completedAddress={summit.completedAddress}
         setDate={summit.setDate}

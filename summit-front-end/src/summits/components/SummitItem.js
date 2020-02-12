@@ -84,13 +84,13 @@ const SummitItem = props => {
             <Card.Text>Countdown</Card.Text>
             <ButtonTemplate onClick={openMapHandler}>MAP</ButtonTemplate>
 
-            {auth.isLoggedIn && (
+            {auth.userId === props.userId && (
               <ButtonTemplate variant={"secondary"} to={`/summits/${props.id}`}>
                 EDIT
               </ButtonTemplate>
             )}
 
-            {auth.isLoggedIn && (
+            {auth.userId === props.userId && (
               <ButtonTemplate variant={"danger"} onClick={openWarningHandler}>
                 DELETE
               </ButtonTemplate>
