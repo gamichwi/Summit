@@ -4,9 +4,14 @@ import { Card, ListGroup } from "react-bootstrap";
 import ButtonTemplate from "../../shared/components/FormElements/Button";
 import ModalTemplate from "../../shared/components/UIElements/Modal";
 import Map from "../../shared/components/UIElements/Map";
+import ErrorModal from '../../shared/components/UIElements/ErrorModal';
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 import { AuthContext } from "../../shared/context/auth-context";
+import { useHttpClient } from "../../shared/hooks/http-hook";
 
 const SummitItem = props => {
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+
   const auth = useContext(AuthContext);
   //Map Modal
   const [showMap, setShowMap] = useState(false);
@@ -17,13 +22,25 @@ const SummitItem = props => {
   const [showWarning, setShowWarning] = useState(false);
   const openWarningHandler = () => setShowWarning(true);
   const closeWarningHandler = () => setShowWarning(false);
-  const confirmDeleteHandler = () => {
+
+  const confirmDeleteHandler = async () => {
     setShowWarning(false);
-    console.log("DELETING...");
+    try {
+      await sendRequest(
+        `/api/summits/${props.id}`,
+        "DELETE"
+      );
+      props.onDelete(props.id);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
     <React.Fragment>
+      <ErrorModal error={error} hide={clearError} />
+
+
       {/* Map Modal */}
       <ModalTemplate
         show={showMap}
@@ -59,6 +76,7 @@ const SummitItem = props => {
 
       <ListGroup.Item>
         <Card className="bg-dark text-white">
+          {isLoading && <LoadingSpinner asOverlay />}
           <Card.Img src={props.setImage} alt={props.title} />
           <Card.ImgOverlay>
             <Card.Title>{props.title}</Card.Title>
@@ -67,10 +85,7 @@ const SummitItem = props => {
             <ButtonTemplate onClick={openMapHandler}>MAP</ButtonTemplate>
 
             {auth.isLoggedIn && (
-              <ButtonTemplate
-                variant={"secondary"}
-                to={`/summits/${props.id}`}
-              >
+              <ButtonTemplate variant={"secondary"} to={`/summits/${props.id}`}>
                 EDIT
               </ButtonTemplate>
             )}

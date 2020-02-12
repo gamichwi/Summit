@@ -33,6 +33,7 @@ return (
         likes={summit.likes}
         summitWord={summit.word}
         private={summit.private}
+        onDelete={props.onDeleteSummit}
       />
     ))}
   </ListGroup>
