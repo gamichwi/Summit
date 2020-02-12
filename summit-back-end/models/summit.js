@@ -9,8 +9,8 @@ const summitSchema = new Schema({
   targetAddress: { type: String, required: true },
   targetDate: { type: Date, required: true },
   targetCoordinates: {
-    lat: { type: Number, required: true },
-    lng: { type: Number, required: true }
+    lat: { type: Number, required: false },
+    lng: { type: Number, required: false }
   },
   completedAddress: { type: String, required: false },
   completedDate: { type: Date, required: false },

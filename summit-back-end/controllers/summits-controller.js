@@ -139,7 +139,7 @@ const updateSummit = async (req, res, next) => {
     );
   }
 
-  const { title, targetAddress, targetCoordinates, targetDate } = req.body;
+  const { title, targetAddress, targetDate } = req.body;
   const summitId = req.params.summitId;
 
   let summit;
@@ -155,7 +155,6 @@ const updateSummit = async (req, res, next) => {
 
   summit.title = title;
   summit.targetAddress = targetAddress;
-  summit.targetCoordinates = targetCoordinates;
   summit.targetDate = targetDate;
 
   try {

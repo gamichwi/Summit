@@ -34,9 +34,6 @@ router.patch(
     check("targetAddress")
       .not()
       .isEmpty(),
-    check("targetCoordinates")
-      .not()
-      .isEmpty(),
     check("targetDate")
       .not()
       .isEmpty()
