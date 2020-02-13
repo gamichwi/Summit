@@ -7,7 +7,7 @@ const ErrorModal = props => {
     <ModalTemplate
       hide={props.hide}
       header="An Error Occurred!"
-      show={props.show}
+      show={!!props.error}
       footer={<ButtonTemplate onClick={props.hide}>Okay</ButtonTemplate>}
     >
       <p>{props.error}</p>

@@ -38,7 +38,8 @@ const Auth = () => {
       setFormData(
         {
           ...formState.inputs,
-          name: undefined
+          name: undefined,
+          image: undefined
         },
         formState.inputs.email.isValid && formState.inputs.password.isValid
       );
@@ -48,6 +49,10 @@ const Auth = () => {
           ...formState.inputs,
           name: {
             value: "",
+            isValid: false
+          },
+          image: {
+            value: null,
             isValid: false
           }
         },
@@ -59,6 +64,8 @@ const Auth = () => {
 
   const authSubmitHandler = async event => {
     event.preventDefault();
+    console.log(formState.inputs);
+
     if (isLoginMode) {
       try {
         const responseData = await sendRequest(
@@ -89,7 +96,6 @@ const Auth = () => {
         );
         auth.login(responseData.user.id);
       } catch (err) {
-        //handled in http-hook.
       }
     }
   };
@@ -115,10 +121,10 @@ const Auth = () => {
 
           {!isLoginMode && 
           <Container>
-          <Row>
-            <Col xs={6} md={4}>
-            <ImageUpload center id="image"/>
-              <Image src="holder.js/171x180" rounded />
+          {/* <Row>
+            <Col xs={6} md={4}> */}
+            <ImageUpload center id="image" onInput={inputHandler}/>
+              {/* <Image src="holder.js/171x180" rounded />
             </Col>
             <Col xs={6} md={4}>
               <Image src="holder.js/171x180" roundedCircle />
@@ -126,7 +132,7 @@ const Auth = () => {
             <Col xs={6} md={4}>
               <Image src="holder.js/171x180" thumbnail />
             </Col>
-          </Row>
+          </Row> */}
         </Container>
           }
           
