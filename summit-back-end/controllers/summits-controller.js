@@ -1,3 +1,4 @@
+const fs = require('fs'); //file system
 const uuid = require("uuid/v4");
 const { validationResult } = require("express-validator");
 const mongoose = require("mongoose");
@@ -185,6 +186,10 @@ const deleteSummit = async (req, res, next) => {
     return next(error);
   }
 
+const imagePath = summit.setImage;
+
+
+
   try {
     const sess = await mongoose.startSession();
     sess.startTransaction();
@@ -199,6 +204,10 @@ const deleteSummit = async (req, res, next) => {
     );
     return next(error);
   }
+
+  fs.unlink(imagePath, err => {
+    console.log(err);
+  });
 
   res.status(200).json({ message: "Deleted Summit." });
 };
