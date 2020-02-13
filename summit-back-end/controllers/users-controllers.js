@@ -14,7 +14,7 @@ const getUsers = async (req, res, next) => {
     );
     return next(error);
   }
-  res.json({ users: users.map(user => user.toObject({ getters: true }))}); //need to map as an array is returned
+  res.json({ users: users.map(user => user.toObject({ getters: true })) }); //need to map as an array is returned
 };
 
 const signup = async (req, res, next) => {
@@ -48,9 +48,8 @@ const signup = async (req, res, next) => {
     name,
     email,
     password,
-    image:
-      "https://pngriver.com/wp-content/uploads/2018/04/Download-Male-User-Logo-Png-Image-69558-For-Designing-Projects.png",
-    summits:[],
+    image: req.file.path,
+    summits: [],
     friends
   });
 
@@ -83,9 +82,9 @@ const login = async (req, res, next) => {
     return next(error);
   }
 
-  res.json({ 
-    message: "Logged in!", 
-    user: existingUser.toObject({ getters: true }) 
+  res.json({
+    message: "Logged in!",
+    user: existingUser.toObject({ getters: true })
   });
 };
 

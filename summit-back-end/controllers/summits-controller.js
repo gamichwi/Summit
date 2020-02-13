@@ -77,12 +77,11 @@ const createSummit = async (req, res, next) => {
   const createdSummit = new Summit({
     title,
     setDate: Date.now(),
-    setImage:
-      "https://images.unsplash.com/photo-1579191203631-368691293d7a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
+    setImage:req.file.path,
     targetAddress,
     targetCoordinates: coordinates,
     targetDate,
-    userId,
+    userId
     // private
   });
 
@@ -114,7 +113,6 @@ const createSummit = async (req, res, next) => {
     await user.save({ session: sess });
     await sess.commitTransaction(); // saves to the database
   } catch (err) {
-    console.log('check this one.');
     console.log(err);
     const error = new HttpError(
       "Creating your Summit failed, please try again.",

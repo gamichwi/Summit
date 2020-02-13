@@ -1,4 +1,6 @@
 require("dotenv").config();
+const fs = require('fs'); //interact with files.. delete etc.
+const path = require('path'); //absolute path
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -9,9 +11,10 @@ const HttpError = require("./models/http-error");
 
 const app = express();
 
-// app.use(cors());
-
 app.use(bodyParser.json());
+
+//for all urls related to images middleware
+app.use('/uploads/images', express.static(path.join('uploads','images')));
 
 // headers to be added to the responses to avoid CORS error
 app.use((req, res, next) => {
@@ -34,6 +37,11 @@ app.use((req, res, next) => {
 });
 
 app.use((error, req, res, next) => {
+  if (req.file) { //added file property from multer
+    fs.unlink(req.file.path, (err) => {
+      console.log(err);
+    });//deletes file
+  }
   if (res.headerSent) {
     return next(error);
   }
