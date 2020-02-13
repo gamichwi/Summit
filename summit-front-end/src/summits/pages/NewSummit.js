@@ -5,7 +5,7 @@ import Input from "../../shared/components/FormElements/Input";
 import ButtonTemplate from "../../shared/components/FormElements/Button";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
-import ImageUpload from '../../shared/components/FormElements/ImageUpload';
+import ImageUpload from "../../shared/components/FormElements/ImageUpload";
 import { VALIDATOR_REQUIRE } from "../../shared/util/validators";
 import { useForm } from "../../shared/hooks/form-hook";
 import { useHttpClient } from "../../shared/hooks/http-hook";
@@ -27,31 +27,34 @@ const NewSummit = () => {
       targetAddress: {
         value: "",
         isValid: false
+      },
+      image: {
+        value: null,
+        isValid: false
       }
     },
     false
   );
 
-  const history = useHistory();//allows navigation history
+  const history = useHistory(); //allows navigation history
 
   const summitSubmitHandler = async event => {
     event.preventDefault();
     try {
+      const formData = new FormData();
+      formData.append("title", formState.inputs.title.value);
+      formData.append("targetAddress", formState.inputs.targetAddress.value);
+      formData.append("targetDate", formState.inputs.targetDate.value);
+      formData.append("userId", auth.userId);
+      formData.append("image", formState.inputs.image.value);
       await sendRequest(
         "http://localhost:5000/api/summits",
         "POST",
-        JSON.stringify({
-          title: formState.inputs.title.value,
-          targetAddress: formState.inputs.targetAddress.value,
-          targetDate: formState.inputs.targetDate.value,
-          // private: formState.inputs.private.value,
-          userId: auth.userId
-        }),
-        { "Content-Type": "application/json" }
+        formData //provides headers
       );
-      history.push("/");//Re-Direct to /
+      history.push("/"); //Re-Direct to /
     } catch (err) {
-     console.log(err);
+      console.log(err);
     }
   };
 
@@ -86,6 +89,11 @@ const NewSummit = () => {
           validators={[VALIDATOR_REQUIRE()]}
           errorText="Please enter a valid location."
           onInput={inputHandler}
+        />
+        <ImageUpload
+          id="image"
+          onInput={inputHandler}
+          errorText="Please provide an image."
         />
         <br />
         <ButtonTemplate type="submit" disabled={!formState.isValid}>

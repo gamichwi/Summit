@@ -120,7 +120,7 @@ const Auth = () => {
           <Container>
           {/* <Row>
             <Col xs={6} md={4}> */}
-            <ImageUpload center id="image" onInput={inputHandler}/>
+            <ImageUpload center id="image" onInput={inputHandler} errorText="Please provide an image."/>
               {/* <Image src="holder.js/171x180" rounded />
             </Col>
             <Col xs={6} md={4}>

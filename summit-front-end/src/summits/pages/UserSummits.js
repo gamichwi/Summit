@@ -17,7 +17,7 @@ const UserSummits = () => {
     const fetchSummits = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/summits/user/${userId}`
+          `/api/summits/user/${userId}`
         );
         setLoadedSummits(responseData.summits);
       } catch (err) {
