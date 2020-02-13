@@ -65,7 +65,6 @@ const createSummit = async (req, res, next) => {
     );
   }
   const { title, targetAddress, targetDate, userId, private } = req.body;
-  console.log(req.body);
   //get coordinates from google api using a function defined in util/location.js
   let coordinates;
   try {
