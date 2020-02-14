@@ -3,12 +3,15 @@ const { check } = require("express-validator");
 
 const summitControllers = require("../controllers/summits-controller");
 const fileUpload = require('../middleware/file-upload');
+const checkAuth = require('../middleware/check-auth');
 
 const router = express.Router();
 
 router.get("/:summitId", summitControllers.getSummitById);
 
 router.get("/user/:userId", summitControllers.getSummitsByUserId);
+
+router.use(checkAuth);//any routes after this can only be reached with a valid token.
 
 router.post(
   "/",
