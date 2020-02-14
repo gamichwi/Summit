@@ -6,6 +6,7 @@ import NavLinks from "./NavLinks";
 
 const MainNavigation = props => {
   return (
+    <div className="main-navigation">
     <Navbar bg="dark" variant="dark">
       <Navbar.Brand href="/">
         <img
@@ -21,6 +22,7 @@ const MainNavigation = props => {
           <NavLinks />
         </MainHeader>
     </Navbar>
+    </div>
   );
 };
 

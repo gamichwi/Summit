@@ -12,7 +12,7 @@ const UserItem = props => {
         <Link to={`/${props.id}/summits`}>
           <Card.Img
             variant="top"
-            src={`http://localhost:5000/${props.image}`}
+            src={`/${props.image}`}
           />
         </Link>
         <Card.Body>

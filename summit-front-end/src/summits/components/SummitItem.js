@@ -81,7 +81,7 @@ const SummitItem = props => {
       <ListGroup.Item>
         <Card className="bg-dark text-white">
           {isLoading && <LoadingSpinner asOverlay />}
-          <Card.Img src={`http://localhost:5000/${props.setImage}`} alt={props.title} />
+          <Card.Img src={`/${props.setImage}`} alt={props.title} />
           <Card.ImgOverlay>
             <Card.Title>{props.title}</Card.Title>
             <Card.Text>{props.targetLocation}</Card.Text>

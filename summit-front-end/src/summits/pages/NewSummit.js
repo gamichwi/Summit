@@ -48,7 +48,7 @@ const NewSummit = () => {
       formData.append("targetDate", formState.inputs.targetDate.value);
       formData.append("image", formState.inputs.image.value);
       await sendRequest(
-        "http://localhost:5000/api/summits",
+        "/api/summits",
         "POST",
         formData, {Authorization: 'Bearer ' + auth.token} //provides headers
       );

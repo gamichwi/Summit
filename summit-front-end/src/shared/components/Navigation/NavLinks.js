@@ -4,9 +4,12 @@ import { NavLink } from "react-router-dom";
 import ButtonTemplate from '../FormElements/Button';
 import { AuthContext } from "../../context/auth-context";//Only shows if logged in
 
+// import './NavLinks.css'
+
 const NavLinks = props => {
   const auth = useContext(AuthContext); //will re-render whenever AuthContext changes
   return (
+    <div className="nav-links">
     <ul>
       <li>
         <NavLink to="/">SUMMIT FEED</NavLink>
@@ -35,6 +38,7 @@ const NavLinks = props => {
         <ButtonTemplate onClick={auth.logout}>LOG OUT</ButtonTemplate>
       )}
     </ul>
+    </div>
   );
 };
 

@@ -13,6 +13,7 @@ import NewSummit from "./summits/pages/NewSummit";
 import UserSummits from "./summits/pages/UserSummits";
 import UpdateSummit from "./summits/pages/UpdateSummit";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
+import NavBootstrap from './shared/components/Navigation/NavBootstrap';
 import Auth from "./users/pages/Auth";
 import { AuthContext } from "./shared/context/auth-context";
 import { useAuth } from './shared/hooks/auth-hook';
@@ -75,6 +76,7 @@ const App = () => {
     >
       <Router>
         <MainNavigation />
+        {/* <NavBootstrap /> */}
         <Container>
           <main>{routes}</main>
         </Container>
