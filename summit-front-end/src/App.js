@@ -24,6 +24,10 @@ const App = () => {
 
   const login = useCallback((userId, token) => {
     setToken(token);
+    localStorage.setItem(
+      "userData",
+      JSON.stringify({ userId: userId, token: token })
+    );
     setUserId(userId);
   }, []);
   const logout = useCallback(() => {
@@ -73,24 +77,22 @@ const App = () => {
   }
 
   return (
-    
-      <AuthContext.Provider
-        value={{
-          isLoggedIn: !!token, //converts to boolean
-          token: token,
-          userId: userId,
-          login: login,
-          logout: logout
-        }}
-      >
-        <Router>
-          <MainNavigation />
-          <Container>
+    <AuthContext.Provider
+      value={{
+        isLoggedIn: !!token, //converts to boolean
+        token: token,
+        userId: userId,
+        login: login,
+        logout: logout
+      }}
+    >
+      <Router>
+        <MainNavigation />
+        <Container>
           <main>{routes}</main>
-          </Container>
-
-        </Router>
-      </AuthContext.Provider>
+        </Container>
+      </Router>
+    </AuthContext.Provider>
   );
 };
 
