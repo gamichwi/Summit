@@ -18,8 +18,11 @@ import { AuthContext } from "./shared/context/auth-context";
 
 import "./App.css";
 
+let logoutTimer;
+
 const App = () => {
   const [token, setToken] = useState(false);
+  const [tokenExpirationDate, setTokeExpirationDate] = useState();
   const [userId, setUserId] = useState(false);
 
   //create the token on login
@@ -28,7 +31,8 @@ const App = () => {
     setUserId(userId);
     const tokenExpirationDate =
       expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60); //Expiry date is now plus one hour. Checks if already has an expirationdate
-    localStorage.setItem(
+    setTokeExpirationDate(tokenExpirationDate);
+      localStorage.setItem(
       //stores token in localStorage
       "userData",
       JSON.stringify({
@@ -44,7 +48,16 @@ const App = () => {
     localStorage.removeItem("userData"); //Deletes Token
   }, []);
 
-  //useEffect renders after everything else
+//if token changes then adjust timer
+useEffect(() => {
+  if (token && tokenExpirationDate) {
+    const remainingTime = tokenExpirationDate.getTime() - new Date().getTime();//difference in milliseconds
+    logoutTimer = setTimeout(logout, remainingTime );
+  } else {
+    clearTimeout(logoutTimer);
+  }
+}, [token, logout, tokenExpirationDate]);
+
   //if the token exists use that to login
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem("userData")); //converts back to JSON
