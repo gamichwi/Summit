@@ -22,16 +22,17 @@ let logoutTimer;
 
 const App = () => {
   const [token, setToken] = useState(false);
-  const [tokenExpirationDate, setTokeExpirationDate] = useState();
+  const [tokenExpirationDate, setTokenExpirationDate] = useState();
   const [userId, setUserId] = useState(false);
 
   //create the token on login
   const login = useCallback((userId, token, expirationDate) => {
     setToken(token);
+    setTokenExpirationDate(null);
     setUserId(userId);
     const tokenExpirationDate =
       expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60); //Expiry date is now plus one hour. Checks if already has an expirationdate
-    setTokeExpirationDate(tokenExpirationDate);
+    setTokenExpirationDate(tokenExpirationDate);
       localStorage.setItem(
       //stores token in localStorage
       "userData",
