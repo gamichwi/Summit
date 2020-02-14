@@ -51,7 +51,7 @@ const NewSummit = () => {
       await sendRequest(
         "http://localhost:5000/api/summits",
         "POST",
-        formData //provides headers
+        formData, {Authorization: 'Bearer ' + auth.token} //provides headers
       );
       history.push("/"); //Re-Direct to /
     } catch (err) {
