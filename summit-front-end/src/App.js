@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -8,17 +8,26 @@ import {
 import { Container } from "react-bootstrap";
 
 import Summits from "./summits/pages/Summits";
-import Users from "./users/pages/Users";
-import NewSummit from "./summits/pages/NewSummit";
-import UserSummits from "./summits/pages/UserSummits";
-import UpdateSummit from "./summits/pages/UpdateSummit";
+// import Users from "./users/pages/Users";
+//import NewSummit from "./summits/pages/NewSummit";
+//import UserSummits from "./summits/pages/UserSummits";
+//import UpdateSummit from "./summits/pages/UpdateSummit";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
-import NavBootstrap from './shared/components/Navigation/NavBootstrap';
-import Auth from "./users/pages/Auth";
+// import NavBootstrap from './shared/components/Navigation/NavBootstrap'; UPDATE LATER
+//import Auth from "./users/pages/Auth";
+import LoadingSpinner from './shared/components/UIElements/LoadingSpinner';
 import { AuthContext } from "./shared/context/auth-context";
 import { useAuth } from './shared/hooks/auth-hook';
 
 import "./App.css";
+
+//load when required
+const Users = React.lazy(()=> import('./users/pages/Users'))
+const NewSummit = React.lazy(()=> import('./summits/pages/NewSummit'))
+const UserSummits = React.lazy(()=> import('./summits/pages/UserSummits'))
+const UpdateSummit = React.lazy(()=> import('./summits/pages/UpdateSummit'))
+const Auth = React.lazy(()=> import('./users/pages/Auth'))
+
 
 
 const App = () => {
@@ -78,7 +87,7 @@ const App = () => {
         <MainNavigation />
         {/* <NavBootstrap /> */}
         <Container>
-          <main>{routes}</main>
+          <main><Suspense fallback={<LoadingSpinner asOverlay/>}>{routes}</Suspense></main>
         </Container>
       </Router>
     </AuthContext.Provider>
