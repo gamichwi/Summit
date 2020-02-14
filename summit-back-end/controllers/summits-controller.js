@@ -154,7 +154,7 @@ const updateSummit = async (req, res, next) => {
   if (summit.userId.toString() !== req.userData.userId){
     const error = new HttpError(
       "Authorization error.",
-      401
+      403
     );
     return next(error);
   }
@@ -194,9 +194,15 @@ const deleteSummit = async (req, res, next) => {
     return next(error);
   }
 
+if(summit.userId.id !== req.userData.userId){
+  const error = new HttpError(
+    "Authorization error.",
+    403
+  );
+  return next(error);
+}
+
 const imagePath = summit.setImage;
-
-
 
   try {
     const sess = await mongoose.startSession();
