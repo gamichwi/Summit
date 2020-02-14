@@ -151,6 +151,14 @@ const updateSummit = async (req, res, next) => {
     return next(error);
   }
 
+  if (summit.userId.toString() !== req.userData.userId){
+    const error = new HttpError(
+      "Authorization error.",
+      401
+    );
+    return next(error);
+  }
+
   summit.title = title;
   summit.targetAddress = targetAddress;
   summit.targetDate = targetDate;
