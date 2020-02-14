@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -22,9 +22,10 @@ const App = () => {
   const [token, setToken] = useState(false);
   const [userId, setUserId] = useState(false);
 
+//create the token on login
   const login = useCallback((userId, token) => {
     setToken(token);
-    localStorage.setItem(
+    localStorage.setItem(//stores token in localStorage
       "userData",
       JSON.stringify({ userId: userId, token: token })
     );
@@ -33,7 +34,17 @@ const App = () => {
   const logout = useCallback(() => {
     setToken(null);
     setUserId(null);
+    localStorage.removeItem('userData');//Deletes Token
   }, []);
+
+  //useEffect renders after everything else 
+  //if the token exists use that to login
+  useEffect(() => {
+    const storedData = JSON.parse(localStorage.getItem('userData'));//converts back to JSON
+    if(storedData && storedData.token){
+      login(storedData.userId, storedData.token)
+    }
+  }, [login]);
 
   let routes;
 
