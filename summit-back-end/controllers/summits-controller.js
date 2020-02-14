@@ -65,7 +65,7 @@ const createSummit = async (req, res, next) => {
       )
     );
   }
-  const { title, targetAddress, targetDate, userId, private } = req.body;
+  const { title, targetAddress, targetDate, private } = req.body;
   //get coordinates from google api using a function defined in util/location.js
   let coordinates;
   try {
@@ -82,14 +82,14 @@ const createSummit = async (req, res, next) => {
     targetAddress,
     targetCoordinates: coordinates,
     targetDate,
-    userId
+    userId: req.userData.userId
     // private
   });
 
   //check if the user id exists already
   let user;
   try {
-    user = await User.findById(userId);
+    user = await User.findById(req.userData.userId);
   } catch (err) {
     const error = new HttpError(
       "Creating your summit failed. Please try again later",
