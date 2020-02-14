@@ -5,6 +5,7 @@ import {
   Redirect,
   Switch
 } from "react-router-dom";
+import { Container } from "react-bootstrap";
 
 import Summits from "./summits/pages/Summits";
 import Users from "./users/pages/Users";
@@ -21,7 +22,7 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userId, setUserId] = useState(false);
 
-  const login = useCallback((userId) => {
+  const login = useCallback(userId => {
     setIsLoggedIn(true);
     setUserId(userId);
   }, []);
@@ -72,14 +73,23 @@ const App = () => {
   }
 
   return (
-    <AuthContext.Provider
-      value={{ isLoggedIn: isLoggedIn, userId: userId, login: login, logout: logout }}
-    >
-      <Router>
-        <MainNavigation />
-        <main>{routes}</main>
-      </Router>
-    </AuthContext.Provider>
+    
+      <AuthContext.Provider
+        value={{
+          isLoggedIn: isLoggedIn,
+          userId: userId,
+          login: login,
+          logout: logout
+        }}
+      >
+        <Router>
+          <MainNavigation />
+          <Container>
+          <main>{routes}</main>
+          </Container>
+
+        </Router>
+      </AuthContext.Provider>
   );
 };
 

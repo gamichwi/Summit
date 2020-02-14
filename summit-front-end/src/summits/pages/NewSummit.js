@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
+import { Container, Col, Row } from "react-bootstrap";
 
 import Input from "../../shared/components/FormElements/Input";
 import ButtonTemplate from "../../shared/components/FormElements/Button";
@@ -60,46 +61,65 @@ const NewSummit = () => {
 
   return (
     <React.Fragment>
-      <ErrorModal error={error} hide={clearError} />
-      <form onSubmit={summitSubmitHandler}>
+ 
+        <ErrorModal error={error} hide={clearError} />
+
         {isLoading && <LoadingSpinner asOverlay />}
-        <Input
-          id="title"
-          element="input"
-          type="text"
-          label="What is your Summit?"
-          validators={[VALIDATOR_REQUIRE()]}
-          errorText="Please enter a valid title."
-          onInput={inputHandler}
-        />
-        <Input
-          id="targetDate"
-          element="input"
-          type="text"
-          label="Target Date"
-          validators={[VALIDATOR_REQUIRE()]}
-          errorText="Please enter a valid target date."
-          onInput={inputHandler}
-        />
-        <Input
-          id="targetAddress"
-          element="input"
-          type="text"
-          label="Target Location"
-          validators={[VALIDATOR_REQUIRE()]}
-          errorText="Please enter a valid location."
-          onInput={inputHandler}
-        />
-        <ImageUpload
-          id="image"
-          onInput={inputHandler}
-          errorText="Please provide an image."
-        />
-        <br />
-        <ButtonTemplate type="submit" disabled={!formState.isValid}>
-          ADD SUMMIT
-        </ButtonTemplate>
-      </form>
+        <Container>
+        <form onSubmit={summitSubmitHandler}>
+        <Row>
+          <Col>
+        
+          <Input
+            id="title"
+            element="input"
+            type="text"
+            label="What is your Summit?"
+            validators={[VALIDATOR_REQUIRE()]}
+            errorText="Please enter a valid title."
+            onInput={inputHandler}
+          />
+          <Input
+            id="targetDate"
+            element="input"
+            type="text"
+            label="Target Date"
+            validators={[VALIDATOR_REQUIRE()]}
+            errorText="Please enter a valid target date."
+            onInput={inputHandler}
+          />
+          <Input
+            id="targetAddress"
+            element="input"
+            type="text"
+            label="Target Location"
+            validators={[VALIDATOR_REQUIRE()]}
+            errorText="Please enter a valid location."
+            onInput={inputHandler}
+          />
+          <br />
+          <br />
+                    <ButtonTemplate type="submit" disabled={!formState.isValid}>
+            ADD SUMMIT
+          </ButtonTemplate>
+          </Col>
+          <Col>
+          <br />
+          <ImageUpload
+            id="image"
+            onInput={inputHandler}
+            errorText="Please provide an image."
+          />
+          </Col>
+          <br />
+          </Row>
+          <Row>
+
+          
+          </Row>
+
+        </form>
+      </Container>
     </React.Fragment>
   );
 };

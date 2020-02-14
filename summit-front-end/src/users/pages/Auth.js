@@ -102,11 +102,9 @@ const Auth = () => {
 
       {isLoading && <LoadingSpinner asOverlay />}
       <h2>Login Required</h2>
-      <Container>
-      <form onSubmit={authSubmitHandler}>
-        <Row>
-          <Col>
-            
+        <form onSubmit={authSubmitHandler}>
+          <Row>
+            <Col>
               {!isLoginMode && (
                 <Input
                   element="input"
@@ -137,31 +135,29 @@ const Auth = () => {
                 errorText="Please enter a valid password, at least 8 characters."
                 onInput={inputHandler}
               />
-          </Col>
-          <Col><br/>
-            {!isLoginMode && (
-              <ImageUpload
-                center
-                id="image"
-                onInput={inputHandler}
-                errorText="Please provide an image."
-              />
-            )}
-          </Col>
-          
-        </Row>
-        <Row>
-        <br />
-              <ButtonTemplate type="submit" disabled={!formState.isValid}>
-                {isLoginMode ? "LOGIN" : "SIGNUP"}
-              </ButtonTemplate>
-              <ButtonTemplate onClick={switchModeHandler} variant="secondary">
-                SWITCH TO {isLoginMode ? "SIGNUP" : "LOGIN"}
-              </ButtonTemplate>
-            
-        </Row>
+            </Col>
+            <Col>
+              <br />
+              {!isLoginMode && (
+                <ImageUpload
+                  center
+                  id="image"
+                  onInput={inputHandler}
+                  errorText="Please provide an image."
+                />
+              )}
+            </Col>
+          </Row>
+            <br />
+            <Row>
+            <ButtonTemplate type="submit" disabled={!formState.isValid}>
+              {isLoginMode ? "LOGIN" : "SIGNUP"}
+            </ButtonTemplate>
+            <ButtonTemplate onClick={switchModeHandler} variant="secondary">
+              SWITCH TO {isLoginMode ? "SIGNUP" : "LOGIN"}
+            </ButtonTemplate>
+          </Row>
         </form>
-      </Container>
     </React.Fragment>
   );
 };
