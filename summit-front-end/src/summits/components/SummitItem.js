@@ -28,7 +28,11 @@ const SummitItem = props => {
     try {
       await sendRequest(
         `/api/summits/${props.id}`,
-        "DELETE"
+        "DELETE",
+        null,//no body required
+        {
+          Authorization: 'Bearer ' + auth.token
+        }
       );
       props.onDelete(props.id);
     } catch (err) {
