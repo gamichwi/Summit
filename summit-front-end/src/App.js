@@ -22,27 +22,38 @@ const App = () => {
   const [token, setToken] = useState(false);
   const [userId, setUserId] = useState(false);
 
-//create the token on login
-  const login = useCallback((userId, token) => {
+  //create the token on login
+  const login = useCallback((userId, token, expirationDate) => {
     setToken(token);
-    localStorage.setItem(//stores token in localStorage
-      "userData",
-      JSON.stringify({ userId: userId, token: token })
-    );
     setUserId(userId);
+    const tokenExpirationDate =
+      expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60); //Expiry date is now plus one hour. Checks if already has an expirationdate
+    localStorage.setItem(
+      //stores token in localStorage
+      "userData",
+      JSON.stringify({
+        userId: userId,
+        token: token,
+        expiration: tokenExpirationDate.toISOString() //ISOString can be converted back to a date later.
+      })
+    );
   }, []);
   const logout = useCallback(() => {
     setToken(null);
     setUserId(null);
-    localStorage.removeItem('userData');//Deletes Token
+    localStorage.removeItem("userData"); //Deletes Token
   }, []);
 
-  //useEffect renders after everything else 
+  //useEffect renders after everything else
   //if the token exists use that to login
   useEffect(() => {
-    const storedData = JSON.parse(localStorage.getItem('userData'));//converts back to JSON
-    if(storedData && storedData.token){
-      login(storedData.userId, storedData.token)
+    const storedData = JSON.parse(localStorage.getItem("userData")); //converts back to JSON
+    if (
+      storedData &&
+      storedData.token &&
+      new Date(storedData.expiration) > new Date() //If Token date is greater than now then it is valid.
+    ) {
+      login(storedData.userId, storedData.token, new Date(storedData.expiration));
     }
   }, [login]);
 
