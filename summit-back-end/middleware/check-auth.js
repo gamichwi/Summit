@@ -13,7 +13,7 @@ module.exports = (req, res, next) => {
     }
     const decodedToken = jwt.verify(
       token,
-      "reticulating_splines_dont_tell_anyone"
+      process.env.JWT_KEY
     );//validate the token
     req.userData = { userId: decodedToken.userId }; //add data to the request
     next(); // let the request continue

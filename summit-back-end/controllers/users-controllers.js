@@ -77,7 +77,7 @@ const signup = async (req, res, next) => {
   try {
     token = jwt.sign(
       { userId: createdUser.id, email: createdUser.email },
-      "reticulating_splines_dont_tell_anyone", //private key
+      process.env.JWT_KEY, //private key
       { expiresIn: "1h" }
     ); //returns a string that is the token
   } catch (err) {
@@ -129,7 +129,7 @@ const login = async (req, res, next) => {
   try {
     token = jwt.sign(
       { userId: existingUser.id, email: existingUser.email },
-      "reticulating_splines_dont_tell_anyone", //private key
+      process.env.JWT_KEY, //private key
       { expiresIn: "1h" }
     ); //returns a string that is the token
   } catch (err) {
