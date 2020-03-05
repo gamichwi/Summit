@@ -39,7 +39,7 @@ const UpdateSummit = () => {
     const fetchSummit = async () => {
       try {
         const responseData = await sendRequest(
-          `api/summits/${summitId}`,
+          `/api/summits/${summitId}`,
         );
         setLoadedSummit(responseData.summit);
         setFormData(
