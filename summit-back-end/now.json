@@ -1,0 +1,9 @@
+{
+    "env":{
+"API_KEY": "AIzaSyC7Hot44OWveAFJFg6078pxcCQg5GfZ7pY",
+"DB_USER": "Gavin",
+"DB_PASSWORD": "Summit123",
+"DB_NAME": "summits",
+"JWT_KEY": "reticulating_splines_dont_tell_anyone"
+    }
+}
