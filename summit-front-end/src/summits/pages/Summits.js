@@ -10,7 +10,7 @@ const DUMMY_PLACES = [
     title: "Win a boxing championship",
     completedAddress: "Melbourne Fight Club",
     setDate: "",
-    targetDate: "",
+    targetDate: "6/5/21",
     completedDate: "",
     completed: false,
     setImage:
@@ -19,8 +19,8 @@ const DUMMY_PLACES = [
       "https://akm-img-a-in.tosshub.com/indiatoday/images/story/201910/jamuna9102019-770x433.png?VB4oJ8dItSqFhwwpLlkhrdCDSzixJd4w",
     setLocation: {},
     targetLocation: {
-      lat: -37.8785909,
-      lng: 144.9739747
+      lat: -37.8192442,
+      lng: 144.9620749
     },
     targetAddress:'',
     completedLocation: {
@@ -37,7 +37,7 @@ const DUMMY_PLACES = [
     title: "Win a foosball championship",
     completedAddress: "Bartronica, Melbourne",
     setDate: "",
-    targetDate: "",
+    targetDate: "9/8/20",
     completedDate: "",
     completed: false,
     setImage: "uploads/images/Foosball.jpeg",
@@ -45,8 +45,8 @@ const DUMMY_PLACES = [
       "https://3.bp.blogspot.com/_TWDIyi5pqlc/TCSymSdTlkI/AAAAAAAAFm4/zzGzAh3S1mQ/s1600/artwork_images_365_268246_maurizio-cattelan-1.jpg",
     setLocation: {},
     targetLocation: {
-      lat: -37.8785909,
-      lng: 144.9739747
+      lat: -37.8177681,
+      lng: 144.9610117
     },
     targetAddress:'',
     completedLocation: {
