@@ -5,32 +5,6 @@ import SummitList from "../components/SummitList";
 
 const DUMMY_PLACES = [
   {
-    id: "p1",
-    creatorId: "u1",
-    title: "Win a foosball championship",
-    completedAddress: "Bartronica, Melbourne",
-    setDate: "",
-    targetDate: "",
-    completedDate: "",
-    completed: false,
-    setImage: "uploads/images/Foosball.jpeg",
-    completedImage:
-      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.z1EQMkYXiRUgWV9rkGpT9AHaE8%26pid%3DApi&f=1",
-    setLocation: {},
-    targetLocation: {
-      lat: -37.8785909,
-      lng: 144.9739747
-    },
-    targetAddress:'',
-    completedLocation: {
-      lat: -37.8785909,
-      lng: 144.9739747
-    },
-    likes: [],
-    summitWord: [],
-    private: true
-  },
-  {
     id: "p2",
     creatorId: "u2",
     title: "Win a boxing championship",
@@ -56,7 +30,34 @@ const DUMMY_PLACES = [
     likes: [],
     summitWord: [],
     private: true
+  },
+  {
+    id: "p1",
+    creatorId: "u1",
+    title: "Win a foosball championship",
+    completedAddress: "Bartronica, Melbourne",
+    setDate: "",
+    targetDate: "",
+    completedDate: "",
+    completed: false,
+    setImage: "uploads/images/Foosball.jpeg",
+    completedImage:
+      "https://3.bp.blogspot.com/_TWDIyi5pqlc/TCSymSdTlkI/AAAAAAAAFm4/zzGzAh3S1mQ/s1600/artwork_images_365_268246_maurizio-cattelan-1.jpg",
+    setLocation: {},
+    targetLocation: {
+      lat: -37.8785909,
+      lng: 144.9739747
+    },
+    targetAddress:'',
+    completedLocation: {
+      lat: -37.8785909,
+      lng: 144.9739747
+    },
+    likes: [],
+    summitWord: [],
+    private: true
   }
+
 ];
 
 const Summits = () => {

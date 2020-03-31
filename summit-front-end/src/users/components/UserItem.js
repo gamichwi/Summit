@@ -10,10 +10,7 @@ const UserItem = props => {
     <ListGroup.Item>
       <Card style={{ width: "18rem" }}>
         <Link to={`/${props.id}/summits`}>
-          <Card.Img
-            variant="top"
-            src={`/${props.image}`}
-          />
+          <Card.Img variant="top" src={`/${props.image}`} />
         </Link>
         <Card.Body>
           <Card.Title>{props.name}</Card.Title>

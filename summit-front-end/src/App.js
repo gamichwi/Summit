@@ -13,7 +13,7 @@ import Summits from "./summits/pages/Summits";
 //import UserSummits from "./summits/pages/UserSummits";
 //import UpdateSummit from "./summits/pages/UpdateSummit";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
-// import NavBootstrap from './shared/components/Navigation/NavBootstrap'; UPDATE LATER
+import NavBootstrap from './shared/components/Navigation/NavBootstrap';
 //import Auth from "./users/pages/Auth";
 import LoadingSpinner from './shared/components/UIElements/LoadingSpinner';
 import { AuthContext } from "./shared/context/auth-context";
@@ -27,8 +27,6 @@ const NewSummit = React.lazy(()=> import('./summits/pages/NewSummit'))
 const UserSummits = React.lazy(()=> import('./summits/pages/UserSummits'))
 const UpdateSummit = React.lazy(()=> import('./summits/pages/UpdateSummit'))
 const Auth = React.lazy(()=> import('./users/pages/Auth'))
-
-
 
 const App = () => {
  const { token, login, logout, userId } = useAuth();
@@ -84,8 +82,8 @@ const App = () => {
       }}
     >
       <Router>
-        <MainNavigation />
-        {/* <NavBootstrap /> */}
+        {/* <MainNavigation /> */}
+        <NavBootstrap />
         <Container>
           <main><Suspense fallback={<LoadingSpinner asOverlay/>}>{routes}</Suspense></main>
         </Container>
