@@ -3,6 +3,8 @@ import React from "react";
 import SummitItem from "./SummitItem";
 import { ListGroup } from "react-bootstrap";
 
+import './SummitList.css'
+
 const SummitList = props => {
   if (props.items.length === 0) {
     return (
@@ -13,7 +15,8 @@ const SummitList = props => {
   }
 
 return (
-  <ListGroup>
+  // <ListGroup>
+  <div className="flexContainer">
     {props.items.map(summit => (
       <SummitItem
         key={summit.id}
@@ -36,7 +39,8 @@ return (
         onDelete={props.onDeleteSummit}
       />
     ))}
-  </ListGroup>
+   {/* </ListGroup> */}
+   </div>
 );
     }
 

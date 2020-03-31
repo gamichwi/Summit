@@ -7,8 +7,8 @@ import { Link } from "react-router-dom";
 
 const UserItem = props => {
   return (
-    <ListGroup.Item>
-      <Card style={{ width: "18rem" }}>
+    // <ListGroup.Item>
+      <Card className="bg-dark text-white userItem" style={{ width: "18rem" }}>
         <Link to={`/${props.id}/summits`}>
           <Card.Img variant="top" src={`/${props.image}`} />
         </Link>
@@ -17,7 +17,7 @@ const UserItem = props => {
           <Card.Text>Conquering {props.summitCount} summits!</Card.Text>
         </Card.Body>
       </Card>
-    </ListGroup.Item>
+    // </ListGroup.Item>
   );
 };
 

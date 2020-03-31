@@ -4,10 +4,11 @@ import { Card, ListGroup } from "react-bootstrap";
 import ButtonTemplate from "../../shared/components/FormElements/Button";
 import ModalTemplate from "../../shared/components/UIElements/Modal";
 import Map from "../../shared/components/UIElements/Map";
-import ErrorModal from '../../shared/components/UIElements/ErrorModal';
-import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
+import ErrorModal from "../../shared/components/UIElements/ErrorModal";
+import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import { AuthContext } from "../../shared/context/auth-context";
 import { useHttpClient } from "../../shared/hooks/http-hook";
+import dateDifference from "../../shared/util/dateDifference";
 
 const SummitItem = props => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -29,9 +30,9 @@ const SummitItem = props => {
       await sendRequest(
         `/api/summits/${props.id}`,
         "DELETE",
-        null,//no body required
+        null, //no body required
         {
-          Authorization: 'Bearer ' + auth.token
+          Authorization: "Bearer " + auth.token
         }
       );
       props.onDelete(props.id);
@@ -43,7 +44,6 @@ const SummitItem = props => {
   return (
     <React.Fragment>
       <ErrorModal error={error} hide={clearError} />
-
 
       {/* Map Modal */}
       <ModalTemplate
@@ -78,14 +78,16 @@ const SummitItem = props => {
         Deleting a Summit can not be undone...
       </ModalTemplate>
 
-      <ListGroup.Item>
-        <Card className="bg-dark text-white">
+      {/* <ListGroup.Item> */}
+        <Card className="bg-dark text-white summitItem">
           {isLoading && <LoadingSpinner asOverlay />}
           <Card.Img src={`/${props.setImage}`} alt={props.title} />
-          <Card.ImgOverlay>
+          <Card.Body>
             <Card.Title>{props.title}</Card.Title>
             <Card.Text>{props.targetLocation}</Card.Text>
-            <Card.Text>Countdown</Card.Text>
+            <Card.Text>
+              Countdown: {dateDifference(null, props.targetDate)} days to go!
+            </Card.Text>
             <ButtonTemplate onClick={openMapHandler}>MAP</ButtonTemplate>
 
             {auth.userId === props.userId && (
@@ -99,9 +101,9 @@ const SummitItem = props => {
                 DELETE
               </ButtonTemplate>
             )}
-          </Card.ImgOverlay>
+          </Card.Body>
         </Card>
-      </ListGroup.Item>
+      {/* </ListGroup.Item> */}
     </React.Fragment>
   );
 };
