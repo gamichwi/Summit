@@ -18,6 +18,7 @@ import NavBootstrap from './shared/components/Navigation/NavBootstrap';
 import LoadingSpinner from './shared/components/UIElements/LoadingSpinner';
 import { AuthContext } from "./shared/context/auth-context";
 import { useAuth } from './shared/hooks/auth-hook';
+import Footer from './shared/components/Footer/Footer';
 
 import "./App.css";
 
@@ -87,6 +88,7 @@ const App = () => {
         <Container>
           <main><Suspense fallback={<LoadingSpinner asOverlay/>}>{routes}</Suspense></main>
         </Container>
+        <Footer />
       </Router>
     </AuthContext.Provider>
   );
