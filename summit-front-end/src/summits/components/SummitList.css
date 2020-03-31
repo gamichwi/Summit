@@ -11,6 +11,12 @@
   margin: 10px;
 }
 
+.summitItem .btn {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
 .summitItem .card-img {
     object-fit: cover;
     height:240px;

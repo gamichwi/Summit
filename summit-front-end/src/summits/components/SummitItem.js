@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
-import { Card, ListGroup } from "react-bootstrap";
+import { Card, ListGroup, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { MdMap, MdModeEdit, MdDelete } from "react-icons/md";
 
 import ButtonTemplate from "../../shared/components/FormElements/Button";
 import ModalTemplate from "../../shared/components/UIElements/Modal";
@@ -79,30 +80,43 @@ const SummitItem = props => {
       </ModalTemplate>
 
       {/* <ListGroup.Item> */}
-        <Card className="bg-dark text-white summitItem">
-          {isLoading && <LoadingSpinner asOverlay />}
-          <Card.Img src={`/${props.setImage}`} alt={props.title} />
-          <Card.Body>
-            <Card.Title>{props.title}</Card.Title>
-            <Card.Text>{props.targetLocation}</Card.Text>
-            <Card.Text>
-              Countdown: {dateDifference(null, props.targetDate)} days to go!
-            </Card.Text>
-            <ButtonTemplate onClick={openMapHandler}>MAP</ButtonTemplate>
+      <Card className="bg-dark text-white summitItem">
+        {isLoading && <LoadingSpinner asOverlay />}
+        <Card.Img src={`/${props.setImage}`} alt={props.title} />
+        <Card.Body>
+          <Card.Title>{props.title}</Card.Title>
+          <Card.Text>{props.targetLocation}</Card.Text>
+          <Card.Text>
+            Countdown: {dateDifference(null, props.targetDate)} days to go!
+          </Card.Text>
 
-            {auth.userId === props.userId && (
-              <ButtonTemplate variant={"secondary"} to={`/summits/${props.id}`}>
-                EDIT
-              </ButtonTemplate>
-            )}
+            <ButtonTemplate toolTipText="Map!" className="map" onClick={openMapHandler}>
+              <MdMap />
+            </ButtonTemplate>
 
-            {auth.userId === props.userId && (
-              <ButtonTemplate variant={"danger"} onClick={openWarningHandler}>
-                DELETE
-              </ButtonTemplate>
-            )}
-          </Card.Body>
-        </Card>
+          {auth.userId === props.userId && (
+            <ButtonTemplate
+            toolTipText="Edit!" 
+              className="edit"
+              variant={"secondary"}
+              to={`/summits/${props.id}`}
+            >
+              <MdModeEdit />
+            </ButtonTemplate>
+          )}
+
+          {auth.userId === props.userId && (
+            <ButtonTemplate
+            toolTipText="Delete!" 
+              className="delete"
+              variant={"danger"}
+              onClick={openWarningHandler}
+            >
+              <MdDelete />
+            </ButtonTemplate>
+          )}
+        </Card.Body>
+      </Card>
       {/* </ListGroup.Item> */}
     </React.Fragment>
   );
