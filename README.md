@@ -67,6 +67,7 @@ This is a MERN stack application (MongoDB, Express, ReactJS, NodeJS).
   * Incorporate Tests using Jest
   * Comments
   * Instagram style feed
+  * Date picker
 
 # Running The App Locally
   * In the back end root folder `NPM Install` & then `NPM Start`
