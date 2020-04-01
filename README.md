@@ -1,7 +1,7 @@
 # Summit
 Celebrate achieving your personal summit/s with friends and like-minded people.
 
-!()(http://)
+!()(https://i.imgur.com/iy6YGSh.png)
 
 Social media can sometimes be seen as a net negative. Summit aims to change this by promoting personal fulfillment by reaching your goals, or, conquering your summits!
 
