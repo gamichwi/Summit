@@ -59,4 +59,4 @@ https://imgur.com/a/MwVypuY
   * useHttp - handles Http requests, errors, etc.
   * useAuth - handles JSON Web Token, log out timer etc.
     
-## To be deployed soon using Zeit
+##### To be deployed soon using Zeit
