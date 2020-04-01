@@ -5,6 +5,8 @@ Celebrate achieving your personal summit/s with friends and like-minded people.
 
 Social media can sometimes be seen as a net negative. Summit aims to change this by promoting personal fulfillment by reaching your goals, or, conquering your summits!
 
+![](https://i.imgur.com/DVocTHt.png)
+
 # Stack
 This is a MERN stack application (MongoDB, Express, ReactJS, NodeJS).
 
