@@ -1,6 +1,8 @@
 # Summit
 Celebrate achieving your personal summit/s with friends and like-minded people.
 
+!()(http://)
+
 Social media can sometimes be seen as a net negative. Summit aims to change this by promoting personal fulfillment by reaching your goals, or, conquering your summits!
 
 # Stack
@@ -46,6 +48,7 @@ This is a MERN stack application (MongoDB, Express, ReactJS, NodeJS).
   * Nodemon
   * Dotenv
   
+# Other things included  
 ## Advanced React features
   * useEffect
   * useCallBack
@@ -59,10 +62,12 @@ This is a MERN stack application (MongoDB, Express, ReactJS, NodeJS).
   * useHttp - handles Http requests, errors, etc.
   * useAuth - handles JSON Web Token, log out timer etc.
     
-## To Be Done
+# To Be Done
   * To be deployed soon using Zeit
   * Incorporate Tests using Jest
+  * Comments
+  * Instagram style feed
 
-## Running The App Locally
+# Running The App Locally
   * In the back end root folder `NPM Install` & then `NPM Start`
   * In the front end root folder `NPM Install` & then `NPM Start`
