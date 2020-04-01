@@ -64,5 +64,5 @@ This is a MERN stack application (MongoDB, Express, ReactJS, NodeJS).
   * Incorporate Tests using Jest
 
 ## Running The App Locally
-  * In the back end root folder `NPM Start`
-  * In the front end root folder `NPM Start`
+  * In the back end root folder `NPM Install` & then `NPM Start`
+  * In the front end root folder `NPM Install` & then `NPM Start`
