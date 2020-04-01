@@ -28,3 +28,16 @@ https://imgur.com/a/MwVypuY
   * UUID
   * Nodemon
   * Dotenv
+  
+## Hooks used
+  * useEffect
+  * useCallBack
+  * useReducer
+  * useState   
+  * useRef
+  
+### Custom Hooks to keep code DRY (Do Not Repeat Yourself)
+  * useForm - handles form input, validation, etc.
+  * useHttp - handles Http requests, errors, etc.
+  * useAuth - handles JSON Web Token, log out timer etc.
+    
