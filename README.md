@@ -66,7 +66,7 @@ This is a MERN stack application (MongoDB, Express, ReactJS, NodeJS).
     
 # To Be Done
   * To be deployed soon using Zeit
-  * Incorporate Tests using Jest
+  * Incorporate tests using Jest
   * Comments
   * Instagram style feed
   * Date picker
