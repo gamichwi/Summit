@@ -8,9 +8,9 @@ import { Link } from "react-router-dom";
 const UserItem = props => {
   return (
     // <ListGroup.Item>
-      <Card className="bg-dark text-white userItem" style={{ width: "18rem" }}>
+      <Card className="bg-dark text-white userItem" >
         <Link to={`/${props.id}/summits`}>
-          <Card.Img variant="top" src={`/${props.image}`} />
+          <Card.Img src={`/${props.image}`} />
         </Link>
         <Card.Body>
           <Card.Title>{props.name}</Card.Title>

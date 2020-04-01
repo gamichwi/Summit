@@ -14,7 +14,8 @@ const UsersList = props => {
     );
   }
   return (
-    <ListGroup>
+    // <ListGroup>
+    <div className="flexContainer">
       {props.items.map(user => (
         <UserItem
           key={user.id}
@@ -24,7 +25,8 @@ const UsersList = props => {
           summitCount={user.summits.length}
         />
       ))}
-    </ListGroup>
+      </div>
+    // </ListGroup>
   );
 };
 
