@@ -59,4 +59,6 @@ This is a MERN stack application (MongoDB, Express, ReactJS, NodeJS).
   * useHttp - handles Http requests, errors, etc.
   * useAuth - handles JSON Web Token, log out timer etc.
     
+## To Be Done
 ##### To be deployed soon using Zeit
+##### Incorporate Tests using Jest
