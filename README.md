@@ -7,7 +7,7 @@ Social media can sometimes be seen as a net negative. Summit aims to change this
 This is a MERN stack application (MongoDB, Express, ReactJS, NodeJS).
 
 # Wire Frame
-https://imgur.com/a/MwVypuY
+![](https://imgur.com/a/MwVypuY)
 
 # Features
   * File Upload (Multer)
