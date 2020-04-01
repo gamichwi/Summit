@@ -62,3 +62,7 @@ This is a MERN stack application (MongoDB, Express, ReactJS, NodeJS).
 ## To Be Done
   * To be deployed soon using Zeit
   * Incorporate Tests using Jest
+
+## Running The App Locally
+  * In the back end root folder `NPM Start`
+  * In the front end root folder `NPM Start`
