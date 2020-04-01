@@ -22,9 +22,9 @@ https://imgur.com/a/MwVypuY
 # Developer Experience
   * Custom hooks to avoid repeating code
   * Clean folder structure
-  * Shared UI Elements (Modal, Spinner, Map, etc.)
-  * Shared Form Elements (Button Templates, Input Templates, Image Upload)
-  * Util components (Date Comparison Function and Validation Logic)
+  * Shared UI Elements to avoid repeating code (Modal, Spinner, Map, etc.)
+  * Shared Form Elements to avoid repeating code (Button Templates, Input Templates, Image Upload)
+  * Shared Util components to avoid repeating code (Date Comparison Function and Validation Logic)
 
 # All Packages Used
 ## Front End
