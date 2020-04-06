@@ -1,0 +1,2 @@
+.flexContainer{display:flex;flex-direction:row;margin-top:5px;justify-content:space-around;margin-bottom:5px}.userItem{width:35%;margin:10px}.userItem .card-img{object-fit:cover;height:240px}@media only screen and (max-width:991px){.userItem{width:30%}}@media only screen and (max-width:768px){.flexContainer{display:block}.userItem{width:100%}}.btn{margin:1px}
+/*# sourceMappingURL=6.074ac5f8.chunk.css.map */

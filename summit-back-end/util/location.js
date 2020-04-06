@@ -4,11 +4,16 @@ const HttpError = require("../models/http-error");
 const API_KEY = process.env.API_KEY;
 
 async function getCoordsForAddress(address) {
-  const response = await axios.get(
-    `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
-      address
-    )}&key=${API_KEY}`
-  );
+  const response = await axios
+    .get(
+      `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+        address
+      )}&key=${API_KEY}`
+    )
+    .catch(err => {
+      console.log("this is the err", err);
+      next(err);
+    });
 
   const data = response.data;
   if (!data || data.status === "ZERO_RESULTS") {
@@ -16,10 +21,10 @@ async function getCoordsForAddress(address) {
       "Could not find location for the specified address.",
       422
     );
-    return next(error);
+    throw error;
   }
   const coordinates = data.results[0].geometry.location;
-  return coordinates
+  return coordinates;
 }
 
 module.exports = getCoordsForAddress;

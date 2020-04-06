@@ -72,6 +72,7 @@ const createSummit = async (req, res, next) => {
     coordinates = await getCoordsForAddress(targetAddress);
     console.log("coordinates", coordinates);
   } catch (error) {
+    console.log('end of the line error',error);
     return next(error); //forward the error if there is one.
   }
 
