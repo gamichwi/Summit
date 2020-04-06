@@ -44,7 +44,7 @@ const getSummitsByUserId = async (req, res, next) => {
 
   if (!summits || summits.length === 0) {
     return next(
-      new HttpError("Could not find summits for the provided User Id", 404)
+      new HttpError("Could not find summits for the provided User Id. You may need to create one!", 404)
     );
   }
 
